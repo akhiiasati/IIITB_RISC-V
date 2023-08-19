@@ -14,3 +14,5 @@ RISC-V exists in several standard configurations, such as RV32 (32-bit) and RV64
 
 However, RISC-V also faces challenges, including competition with established architectures like ARM and x86, ensuring compatibility and standardization, and addressing diverse application requirements. Overall, RISC-V's open and adaptable approach positions it as a promising alternative ISA, capable of spurring innovation across processor design domains.
 
+### Introduction to RISC-V basic keywords
+
