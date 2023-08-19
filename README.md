@@ -9,8 +9,6 @@
 ### Instruction Set Architecture (ISA)
 An Instruction Set Architecture (ISA) is a set of rules and specifications that define the instructions that a computer's processor can execute. It serves as a crucial interface between the hardware (the physical components of the computer) and the software (the programs and applications that run on the computer). The ISA essentially provides a standardized way for software to communicate with and utilize the underlying hardware resources.
 
-Think of the ISA as the "language" that software uses to communicate with the processor. It defines the types of operations that the processor can perform, the formats of instructions that the processor understands, and the organization of registers (small, fast memory locations within the processor) that store data during computations.
-
 Key aspects of an ISA include:
 
 1. Instruction Formats: The ISA specifies the structure of instructions that the processor can execute. This includes fields for the operation to be performed, the operands involved, and addressing modes.
