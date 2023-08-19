@@ -1,1 +1,1 @@
-# IIITB_RISC-V
+# RISC-V
