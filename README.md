@@ -258,3 +258,33 @@ The above steps summarize the process of compiling the "sum1ton.c" C program in 
 ![Screenshot from 2023-08-20 22-18-36](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/6bda54df-71c0-463a-8514-57de848aecba)
 
 Note: When compiling the same C code in "Ofast" mode, it utilizes a smaller number of instructions in comparison to the "O1" mode. This discrepancy can be attributed to the "Ofast" mode's heightened level of aggressiveness in optimization, which seeks to extract superior code performance at the potential expense of adhering strictly to language standards or preserving certain code structures. Consequently, the resulting assembly code from "Ofast" mode is streamlined and efficient, accomplishing the same computational task with fewer instructions than the assembly generated under the relatively more conservative "O1" optimization mode.
+
+### Data Representation and Storage in RISC-V
+
+In RISC-V and computer architecture in general, several terms relate to data representation and storage. Let's explore them:
+
+- Byte: A byte is the fundamental unit of data storage and representation in computers. It consists of 8 bits and can represent a single character or value.
+
+- Word: A word typically refers to the natural data size that a processor operates with. In RISC-V, the term "word" can vary based on the architecture. For example, in RV32 (32-bit architecture), a word is 4 bytes (32 bits), while in RV64 (64-bit architecture), a word is 8 bytes (64 bits).
+
+- Double Word: A double word is twice the size of a word. In RISC-V, for example, in RV32, a double word is 8 bytes (64 bits), and in RV64, a double word is 16 bytes (128 bits).
+
+- Least Significant Bit (LSB): The least significant bit is the lowest-order bit in a binary representation.
+
+- Most Significant Bit (MSB): The most significant bit is the highest-order bit in a binary representation. It has the greatest influence on the overall value of a number. The MSB is the bit that represents the largest power of two.
+
+- Endianness: Endianness refers to how multi-byte data is stored in memory. In a big-endian system, the most significant byte is stored at the lowest memory address, while in a little-endian system, the least significant byte is stored at the lowest memory address. RISC-V supports both big-endian and little-endian modes.
+
+- Byte Addressing: Byte addressing is a memory addressing scheme used in computer systems to identify and access individual bytes of data within the computer's memory. In byte addressing, each individual byte in the memory has a unique address, allowing direct access to and manipulation of single bytes of data. In RISC-V, like in many other computer architectures, memory is byte-addressable.
+
+- Understanding these terms is crucial when working with data representation, memory allocation, and programming in computer systems, including the RISC-V architecture.
+
+### Representation of Signed and Unsigned Numbers
+
+#### Unsigned Numbers:
+
+Unsigned numbers don't have any sign; they can only contain the magnitude of the number. The representation of unsigned binary numbers consists of all positive numbers. Since there is no sign bit in this representation, an N-bit binary number represents its magnitude only. Zero (0) is also an unsigned number. Every number in unsigned number representation has only one unique binary equivalent form, making it an unambiguous representation technique. The range of unsigned binary numbers is from 0 to ((2^n)-1).
+
+#### Signed Numbers:
+Generally, the 2's complement representation is used for signed numbers. The 2’s complement of a number is obtained by inverting each bit of the given number and adding 1 to the least significant bit (LSB). Positive numbers are represented in binary form, while negative numbers are represented in 2’s complement form. An extra bit is used for sign representation. If the value of the sign bit is 0, the number is positive and can be directly represented in a simple binary form. If the value of the sign bit is 1, the number is negative, and the 2’s complement of the given binary number should be taken. In this representation, zero (0) has only one (unique) representation, which is always positive. The range of 2’s complement form is from (-2^(n-1)) to ((2^(n-1))-1).
+
