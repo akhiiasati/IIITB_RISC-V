@@ -112,6 +112,7 @@ The combination of the base integer ISA ("I") and its four standard extensions (
 
 In summary, RISC-V is not only a novel open-source ISA but also a flexible framework that allows for customization and specialization. With its base integer ISA and optional extensions, it caters to a diverse set of requirements across various industries and applications, making it a noteworthy advancement in the realm of computer architecture.
 
+![Screenshot 2023-08-20 182714](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/5a6ebdcb-952a-4db2-aa9f-175908a42fd6)
 
 ### Introduction to RISC-V basic keywords
 
