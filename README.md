@@ -391,4 +391,106 @@ Upon running the code with the provided instructions, you will see the output th
 ![Screenshot from 2023-08-20 22-57-53](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/4dc7a451-d51c-4c77-9f9a-5065d315d866)
 
 #### Different Data-Types:
-![Screenshot 2023-08-20 230354](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/18a4af69-0424-4557-84be-f18ddc7cea61)
+![Screenshot 2023-08-20 230354](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/4a00b43f-9659-45f1-a76c-9db335328ee1)
+
+# Day 2: Introduction to ABI and basic verification flow
+- [Base Integer Instruction Set RV64I](#base-integer-instruction-set-rv64i)
+  - [General-Purpose Registers and Operand Types](#general-purpose-registers-and-operand-types)
+  - [Instruction Formats and Types](#instruction-formats-and-types)
+- [Application Binary Interface (ABI) in RISC-V](#application-binary-interface-(abi)-in-risc-v)
+  - [Key Points about ABI in RISC-V](key-points-about-abi-in-risc-v)
+
+## Base Integer Instruction Set RV64I
+
+RV64I serves as the base integer instruction set for the 64-bit architecture, building upon the RV32I variant. While RV64I shares most instructions with RV32I, there are differences in register width and additional instructions in RV64I. The base integer instruction set comprises 47 instructions, derived from both RV32I and RV64I (35 from RV32I and 12 from RV64I). Below are the instructions:
+
+| **Opcode** | **Name**                  | **Format** | **Description**                                                        |
+|-----------|---------------------------|------------|------------------------------------------------------------------------|
+| LUI       | Load Upper Immediate      | U-Type     | Load a 20-bit immediate into the upper 32 bits of a register.         |
+| AUIPC     | Add Upper Immediate to PC | U-Type     | Add a 20-bit immediate to the PC and store the result in a register.  |
+| JAL       | Jump and Link            | J-Type     | Jump to a target address and store the return address in a register.  |
+| JALR      | Jump and Link Register    | I-Type     | Jump to a target address using an offset and store the return address.|
+| BEQ       | Branch Equal             | B-Type     | Branch to a target address if two registers are equal.                |
+| BNE       | Branch Not Equal         | B-Type     | Branch to a target address if two registers are not equal.            |
+| BLT       | Branch Less Than         | B-Type     | Branch to a target address if one register is less than another.      |
+| BGE       | Branch Greater Equal     | B-Type     | Branch to a target address if one register is greater than or equal.  |
+| BLTU      | Branch Less Than (Unsigned) | B-Type | Branch if one register is less than another (unsigned comparison).    |
+| BGEU      | Branch Greater Equal (Unsigned) | B-Type | Branch if one register is greater than or equal (unsigned comparison). |
+| LB        | Load Byte                | I-Type     | Load a byte from memory into a register with sign extension.         |
+| LH        | Load Half                | I-Type     | Load a halfword from memory into a register with sign extension.     |
+| LW        | Load Word                | I-Type     | Load a word from memory into a register.                              |
+| LBU       | Load Byte (Unsigned)     | I-Type     | Load a byte from memory into a register without sign extension.      |
+| LHU       | Load Half (Unsigned)     | I-Type     | Load a halfword from memory into a register without sign extension.  |
+| SB        | Store Byte               | S-Type     | Store the low byte of a register into memory.                         |
+| SH        | Store Half               | S-Type     | Store the low halfword of a register into memory.                     |
+| SW        | Store Word               | S-Type     | Store a word from a register into memory.                             |
+| ADDI      | Add Immediate            | I-Type     | Add an immediate value to a register.                                 |
+| SLTI      | Set Less Than Immediate  | I-Type     | Set a register to 1 if less than immediate; otherwise, set to 0.     |
+| SLTIU     | Set Less Than Immediate (Unsigned) | I-Type | Set a register to 1 if less than immediate (unsigned); otherwise, 0.|
+| XORI      | XOR Immediate            | I-Type     | Perform bitwise XOR with an immediate value.                          |
+| ORI       | OR Immediate             | I-Type     | Perform bitwise OR with an immediate value.                           |
+| ANDI      | AND Immediate            | I-Type     | Perform bitwise AND with an immediate value.                          |
+| SLLI      | Shift Left Logical Immediate | I-Type | Shift a register left by an immediate number of bits.                |
+| SRLI      | Shift Right Logical Immediate | I-Type | Shift a register right by an immediate number of bits (logical).     |
+| SRAI      | Shift Right Arithmetic Immediate | I-Type | Shift a register right by an immediate number of bits (arithmetic).  |
+| ADD       | Add                      | R-Type     | Add two registers and store the result in a destination register.    |
+| SUB       | Subtract                 | R-Type     | Subtract one register from another and store the result.             |
+| SLL       | Shift Left Logical       | R-Type     | Shift a register left by a variable number of bits.                  |
+| SLT       | Set Less Than            | R-Type     | Set a register to 1 if one register is less than another.            |
+| SLTU      | Set Less Than (Unsigned) | R-Type     | Set a register to 1 if one register is less than another (unsigned). |
+| XOR       | XOR                      | R-Type     | Perform bitwise XOR with two registers.                              |
+| SRL       | Shift Right Logical      | R-Type     | Shift a register right by a variable number of bits (logical).       |
+| SRA       | Shift Right Arithmetic   | R-Type     | Shift a register right by a variable number of bits (arithmetic).    |
+| OR        | OR                       | R-Type     | Perform bitwise OR with two registers.                               |
+| AND       | AND                      | R-Type     | Perform bitwise AND with two registers.                              |
+| FENCE     | Fence                    | I-Type     | Synchronize the execution of memory operations.                      |
+| ECALL     | Environment Call         | I-Type     | Invoke
+
+
+### General-Purpose Registers and Operand Types
+
+RV64I employs 31 general-purpose registers, x1–x31, to hold integer values. x0 is fixed as the constant 0. Unlike some architectures, there is no hardwired link register for subroutine returns; instead, x1 is commonly used to store return addresses. For RV32, registers are 32 bits wide, while for RV64, they are 64 bits wide. The term XLEN is used to denote the current width of an x register in bits (either 32 or 64).
+
+| Register   | Description                                        |
+|------------|----------------------------------------------------|
+| `x0`       | Hardwired to constant 0.                          |
+| `x1`       | Often used for return addresses in subroutine calls. |
+| `x2` to `x31` | General-purpose registers holding integer values. |
+
+
+### Instruction Formats and Types
+
+In the RISC-V instruction set architecture, instructions are categorized into different formats based on their opcode and operand types. Each format is denoted by a single-letter abbreviation. Here's an explanation of each type:
+
+- R-Type (Register Type): These instructions perform operations on two source registers and store the result in a destination register. They cover arithmetic, logical, and bitwise operations. The format is: opcode rd, rs1, rs2.
+
+- I-Type (Immediate Type): These instructions involve an immediate (constant) value as an operand. They work with a source register to perform operations like arithmetic, logical, and memory operations. The format is: opcode rd, rs1, imm.
+
+- S-Type (Store Type): S-type instructions are used for storing data into memory. They combine a source register, a destination address (base register), and an immediate offset to determine where the data should be stored. The format is: opcode rs2, imm(rs1).
+
+- B-Type (Branch Type): B-type instructions are used for conditional branching. They compare values from two source registers and use an immediate offset to determine the branching target. These instructions support operations like equality, inequality, and comparison. The format is: opcode rs1, rs2, imm.
+
+- U-Type (Upper Immediate Type): U-type instructions are for loading immediate values into registers, including unconditional jump instructions. They operate on a single source register and use an immediate value to specify the upper bits of the result. The format is: opcode rd, imm.
+
+- J-Type (Jump Type): J-type instructions are used for unconditional jumps. They involve using an immediate offset to determine the target address of the jump. These instructions are typically used for implementing function calls and other control flow changes. The format is: opcode rd, imm.
+
+![Summary+of+RISC-V+Instruction+Formats](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/7e0129e9-2102-4d91-9935-0dc1e39fc0e6)
+
+## Application Binary Interface (ABI) in RISC-V:
+
+The Application Binary Interface (ABI), also referred to as the System Call Interface, allows application programmers to directly access the registers of the RISC-V architecture through system calls. This mechanism enables programmers to interact with hardware resources via registers, facilitated by the ABI. The RISC-V ABI defines standardized functions for registers, promoting software interoperability.
+
+The ABI consists of two primary components: the set of user instructions and the system call interface through the operating system layer.
+
+The RISC-V architecture comprises 32 registers, labeled from x(0) to x(31), with their width determined by XLEN (32 bits for RV32 and 64 bits for RV64). Application programmers can access each of these registers using their ABI names.
+
+![ABI](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/f837dc3a-9290-4fa2-91f0-81f9ca69f0f8)
+
+#### Key Points about ABI in RISC-V:
+
+- The RISC-V architecture employs byte-addressable memory.
+- RISC-V follows the little-endian memory addressing system.
+- Loading data into registers can be done directly or via memory access.
+- Direct loading into registers is limited by the number of available registers, necessitating the use of memory for larger data sets.
+- Understanding the ABI in RISC-V is crucial for developers working with the architecture, as it provides a standardized approach for interacting with registers and hardware resources.
+
