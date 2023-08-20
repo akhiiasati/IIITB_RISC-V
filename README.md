@@ -88,7 +88,7 @@ Different computer architectures (like x86, ARM, and RISC-V) have their own dist
 ### RISC-V ISA
 RISC-V, which stands for "Reduced Instruction Set Computing - Five," is a revolutionary instruction set architecture (ISA) initially designed to support research and education in the field of computer architecture. The architecture is characterized by its open-source nature and flexibility, enabling various implementations and adaptations.
 
-- Base and Optional Extensions
+- Base and Optional Extensions:
 
 At its core, the RISC-V ISA comprises a foundational base integer ISA, known as "I." This base ISA serves as the foundation for all RISC-V implementations and forms a practical target for compilers, assemblers, linkers, and operating systems. Unlike traditional architectures, RISC-V eliminates branch delay slots and introduces support for optional variable-length instruction encodings.
 
@@ -96,7 +96,7 @@ The base integer ISA, designated as "I," consists of instructions essential for 
 
 RISC-V also features optional extensions that can be added to the base ISA according to specific requirements. These extensions enhance the architecture's capabilities and tailor it to various application domains
 
-- Standard Extensions
+- Standard Extensions:
 
     "M" Extension (Integer Multiplication and Division): The standard integer multiplication and division extension, named "M," introduces instructions that enable the multiplication and division of values stored in integer registers.
 
@@ -106,7 +106,7 @@ RISC-V also features optional extensions that can be added to the base ISA accor
 
     "D" Extension (Double-Precision Floating-Point): Extending the floating-point capabilities further, the "D" extension augments the architecture with double-precision floating-point operations. It introduces double-precision computational instructions, along with loads and stores for double-precision values.
 
-- General-Purpose Scalar Instruction Set
+- General-Purpose Scalar Instruction Set:
 
 The combination of the base integer ISA ("I") and its four standard extensions ("IMAFD") creates a versatile general-purpose scalar instruction set, often referred to by the abbreviation "G." This comprehensive set of instructions forms the backbone of the RISC-V architecture, providing the foundation for a wide range of computing tasks.
 
