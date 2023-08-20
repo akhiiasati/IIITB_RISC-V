@@ -65,7 +65,7 @@ source ~/.bashrc
 ```
 
 # Day 1: Introduction to RISC-V ISA and GNU compiler toolchain
-- [RISC-V: A Transformative ISA for Innovation](risc-v-a-transformative-isa-for-innovation)
+- [RISC-V: A Transformative ISA for Innovation](#risc-v-a-transformative-isa-for-innovation)
 ### RISC-V: A Transformative ISA for Innovation
 
 RISC-V, short for "Reduced Instruction Set Computing - Five," introduces a groundbreaking instruction set architecture (ISA) born from a commitment to advancing computer architecture research and education. Embracing an open-source ethos and adaptability, RISC-V empowers diverse implementations and customizations.
