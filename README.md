@@ -66,40 +66,33 @@ source ~/.bashrc
 
 # Day 1: Introduction to RISC-V ISA and GNU compiler toolchain
 - [RISC-V: A Transformative ISA for Innovation](#risc-v-a-transformative-isa-for-innovation)
+- [Features of RISC-V](#features-of-risc-v)
+- [RISC-V Foundation and RISC-V International](#risc-v-foundation-and-risc-v-international)
 ### RISC-V: A Transformative ISA for Innovation
 
-RISC-V, short for "Reduced Instruction Set Computing - Five," introduces a groundbreaking instruction set architecture (ISA) born from a commitment to advancing computer architecture research and education. Embracing an open-source ethos and adaptability, RISC-V empowers diverse implementations and customizations.
+RISC-V, known as "Reduced Instruction Set Computing - Five," is a transformative open-source instruction set architecture (ISA) born from a commitment to advancing computer architecture research and education. With its roots tracing back to the pioneering work of Prof. David Patterson and Prof. John Hennessy, RISC-V redefines chip design, embodying decades of research. It follows a RISC approach, strategically positioning instruction bit fields for simplified CPU design and employing IEEE 754 floating-point precision. Unlike traditional ISAs, RISC-V operates under open-source licenses, offering an edge in flexibility, scalability, and innovation. Led by Prof. Krste Asanović, Yunsup Lee, and Andrew Waterman, its accessible framework empowers ease of processor creation and customization, signifying a new era in instruction set architectures.
 
-The origin of the RISC acronym dates back to 1980, attributed to Prof. David Patterson of UC Berkeley and Prof. John Hennessy of Stanford University. Their pioneering work culminated in acclaimed books and an ACM Turing Award in 2017. The fifth evolution, RISC-V, emerged around 2010.
-
-As a RISC architecture, RISC-V follows a load-store approach and employs IEEE 754 floating-point for precision. It boasts noteworthy features, including strategically positioned instruction bit fields for simplified CPU design, architectural neutrality, and an optimized sign-extension mechanism.
-
-In essence, RISC-V stands as an emblem of innovation, backed by decades of research, embodying open principles, and poised to reshape the landscape of instruction set architectures.
+![riscv_social](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/d180be06-b618-466d-82ef-7fe5bf0fd92a)
 
 
-- Base and Optional Extensions:
+### Features of RISC-V:
+Free and Open-Source: RISC-V operates on an open-source model, eliminating the need for IP payment. Unlike other commercial ISAs, RISC-V encourages accessibility and collaboration.
 
-At its core, the RISC-V ISA comprises a foundational base integer ISA, known as "I." This base ISA serves as the foundation for all RISC-V implementations and forms a practical target for compilers, assemblers, linkers, and operating systems. Unlike traditional architectures, RISC-V eliminates branch delay slots and introduces support for optional variable-length instruction encodings.
+Simplicity: RISC-V's footprint is notably smaller compared to conventional ISAs. Its streamlined design promotes efficiency and ease of implementation.
 
-The base integer ISA, designated as "I," consists of instructions essential for integer computations, integer loads, integer stores, control-flow instructions, and additional supervisor-level operations. This minimalistic approach ensures practicality and serves as a building block for customization.
+Modularity: RISC-V boasts a compact standard base ISA, accompanied by various standard extensions. This modular approach enables tailoring to specific application needs.
 
-RISC-V also features optional extensions that can be added to the base ISA according to specific requirements. These extensions enhance the architecture's capabilities and tailor it to various application domains
+Stability: The base and initial standard extensions of RISC-V are already finalized and stable. This stability mitigates concerns about disruptive major updates.
 
-- Standard Extensions:
+Extensibility: RISC-V's architecture accommodates the addition of specific functionalities via extensions. The ongoing development of extensions, such as the Vector extension, enhances RISC-V's capabilities.
 
-    "M" Extension (Integer Multiplication and Division): The standard integer multiplication and division extension, named "M," introduces instructions that enable the multiplication and division of values stored in integer registers.
+In essence, RISC-V’s open nature, simplicity, modularity, stability, and extensibility redefine the landscape of instruction set architectures, setting it apart from established ARM and x86 alternatives.
 
-    "A" Extension (Atomic Instructions): The standard atomic instruction extension, denoted as "A," adds instructions for atomic memory operations. These instructions facilitate inter-processor synchronization by enabling memory reads, modifications, and writes in an atomic manner.
+### RISC-V Foundation and RISC-V International
 
-    "F" Extension (Single-Precision Floating-Point): The "F" extension enhances RISC-V with single-precision floating-point capabilities. It introduces floating-point registers, computational instructions for single-precision operations, and instructions for single-precision loads and stores.
+Established in 2015, the RISC-V Foundation responded to the need for a stable instruction set architecture (ISA) suitable for prolonged commercial use. With a commitment to stability, it took charge of intellectual property related to RISC-V's definition. Among the founding members were innovative entities such as Andes, Google, IBM, SiFive, and even IIT Madras, collectively shaping RISC-V's journey. In 2019, the foundation's transformation into RISC-V International marked its relocation to Switzerland, underlining its commitment to openness and stability. This shift, while maintaining document accessibility, granted member organizations the power to endorse changes and use the trademarked compatibility logo, fostering a collaborative evolution.
 
-    "D" Extension (Double-Precision Floating-Point): Extending the floating-point capabilities further, the "D" extension augments the architecture with double-precision floating-point operations. It introduces double-precision computational instructions, along with loads and stores for double-precision values.
-
-- General-Purpose Scalar Instruction Set:
-
-The combination of the base integer ISA ("I") and its four standard extensions ("IMAFD") creates a versatile general-purpose scalar instruction set, often referred to by the abbreviation "G." This comprehensive set of instructions forms the backbone of the RISC-V architecture, providing the foundation for a wide range of computing tasks.
-
-In summary, RISC-V is not only a novel open-source ISA but also a flexible framework that allows for customization and specialization. With its base integer ISA and optional extensions, it caters to a diverse set of requirements across various industries and applications, making it a noteworthy advancement in the realm of computer architecture.
+![risc-v-members](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/251e4e94-c95b-4001-8f2f-02d1be575fc6)
 
 ![Screenshot 2023-08-20 182714](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/5a6ebdcb-952a-4db2-aa9f-175908a42fd6)
 
