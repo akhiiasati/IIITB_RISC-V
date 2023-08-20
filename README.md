@@ -5,7 +5,7 @@
 
 
 # Day 1: Introduction to RISC-V ISA and GNU compiler toolchain
-- [RISC-V Toolchain Installation Guide](!risc-v-toolchain-installation-guide)
+- [RISC-V Toolchain Installation Guide](#risc-v-toolchain-installation-guide)
 ## RISC-V Toolchain Installation Guide
 
 This guide outlines the steps to install a RISC-V toolchain on a Linux system. The toolchain is necessary for RISC-V development and includes various dependencies.
