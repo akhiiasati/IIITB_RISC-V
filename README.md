@@ -70,6 +70,7 @@ source ~/.bashrc
 - [RISC-V Foundation and RISC-V International](#risc-v-foundation-and-risc-v-international)
 - [RISC-V Architecture](#risc-v-architecture)
 - [ISA base and extensions](#isa-base-and-extensions)
+- [From Application Software to Hardware Execution: A Flow Overview](#from-pplication-software-to-hardware-execution-a-flow-overview)
 
 
 
@@ -100,10 +101,7 @@ Established in 2015, the RISC-V Foundation responded to the need for a stable in
 ![risc-v-members](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/251e4e94-c95b-4001-8f2f-02d1be575fc6)
 
 ### RISC-V Architecture
-
 ![RV12_Arch](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/37da2807-71df-4938-876f-18fde63a8edb)
-
-![Screenshot 2023-08-20 182714](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/5a6ebdcb-952a-4db2-aa9f-175908a42fd6)
 
 ### ISA base and extensions
 
@@ -131,5 +129,14 @@ The RISC-V instruction set architecture (ISA) is organized into a core "base" in
 | **P** Extension   | Packed-SIMD instructions                         |
 
 
-### Introduction to RISC-V basic keywords
+### From Application Software to Hardware Execution: A Flow Overview
 
+When a C program is intended to run on hardware, it goes through several stages. Initially, it's translated into RISC-V assembly language. Then, this assembly language is converted into binary machine language, which the hardware understands. The link between RISC-V assembly language and the chip's physical layout is established using Hardware Description Language (HDL), closely tied to hardware operations.
+
+To define a RISC specification, the architecture is implemented to facilitate data transfer through registers. This involves transitioning from the Register Transfer Level (RTL) to the chip layout in an RTL to GDSII flow. This ensures applications operate seamlessly on the hardware.
+
+To make an application function on hardware, it navigates the software system, involving the Operating System (OS), compiler, and assembler. The OS manages I/O and memory, the compiler translates high-level code into hardware-specific instructions (like RISC-V for RISC-V systems), and the assembler converts these into binary machine language. This binary, the bridge between C and hardware, follows the Instruction Set Architecture (ISA), establishing a link between software and hardware through binary instructions.
+
+![Screenshot 2023-08-20 182714](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/5a6ebdcb-952a-4db2-aa9f-175908a42fd6)
+![Screenshot (28)](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/2b71de6f-9d17-463b-a9c3-f62d7edb473c)
+![Screenshot (29)](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/2b592370-b9c6-460d-a128-89f858eaa589)
