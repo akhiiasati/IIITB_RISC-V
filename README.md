@@ -86,7 +86,42 @@ Different computer architectures (like x86, ARM, and RISC-V) have their own dist
 
 
 ### RISC-V ISA
-RISC-V (Reduced Instruction Set Computing - Five) emerges as an innovative instruction set architecture (ISA) initially designed to foster research and education in computer architecture. The RISC-V ISA comprises a foundational base integer ISA, which is obligatory in all implementations, supplemented by optional extensions that can be integrated with the base ISA. The base integer ISA echoes the principles of early RISC processors while eliminating branch delay slots and incorporating support for variable-length instruction encodings. The core is intentionally confined to a minimal set of instructions, adequate to serve as a practical target for compilers, assemblers, linkers, and operating systems (alongside additional supervisor-level operations). This approach establishes a functional ISA and software toolchain "framework" that can be tailored to create more specialized processor ISAs. The basic integer ISA is denoted as "I" (prefixed by RV32 or RV64, based on integer register width) and encompasses integer computational instructions, integer loads, integer stores, and control-flow instructions, being mandatory for all RISC-V implementations. The standard integer multiplication and division extension is labeled "M" and introduces instructions for multiplying and dividing values stored in integer registers. The standard atomic instruction extension, identified as "A," introduces instructions for atomic memory read-modify-write operations, facilitating inter-processor synchronization. The standard single-precision floating-point extension, referred to as "F," adds single-precision floating-point registers, computational instructions, and data transfer operations. The standard double-precision floating-point extension, termed "D," expands the floating-point register set and introduces double-precision computational instructions and data transfers. An integer base combined with these four standard extensions ("IMAFD") is abbreviated as "G," delivering a versatile scalar instruction set.
+RISC-V, which stands for "Reduced Instruction Set Computer - Five", is an open and royalty-free instruction set architecture (ISA) designed for various computing tasks. It is characterized by its modular design, allowing for customization and specialization based on application needs. The RISC-V ISA comes in several standard variations, denoted by different letter extensions:
+
+#### 1. Base Integer ISA:
+- RV32I: 32-bit base integer ISA.
+- RV64I: 64-bit base integer ISA.
+- RV128I: 128-bit base integer ISA (less common).
+
+#### 2. Integer Multiply and Divide (M) Extension:
+- RV32M: 32-bit base integer ISA with multiplication and division instructions.
+- RV64M: 64-bit base integer ISA with multiplication and division instructions.
+
+#### 3. Single-Precision Floating-Point (F) Extension:
+- RV32F: 32-bit base integer ISA with single-precision floating-point instructions.
+- RV64F: 64-bit base integer ISA with single-precision floating-point instructions.
+
+#### 4. Double-Precision Floating-Point (D) Extension:
+- RV32D: 32-bit base integer ISA with double-precision floating-point instructions.
+- RV64D: 64-bit base integer ISA with double-precision floating-point instructions.
+
+#### 5. Atomic (A) Extension:
+- Adds atomic memory operations.
+
+#### 6. Vector (V) Extension:
+- Adds vector processing instructions.
+
+#### 7. Floating-Point Extension (F and D combined):
+- RV32F and RV64F: Base integer ISAs with both single-precision and double-precision floating-point instructions.
+
+#### 8. Privileged Architecture (P) Extension:
+- Adds supervisor and hypervisor modes, virtual memory support, and privilege levels.
+
+#### 9. Custom Extensions:
+
+- Beyond the standard extensions, RISC-V allows custom extensions to tailor the architecture for specific applications.
+
+It's worth noting that RISC-V is designed to be modular, which means that specific implementations can choose which extensions to include based on their requirements. This flexibility makes RISC-V suitable for a wide range of applications, from embedded systems to high-performance computing.
 
 
 ### Introduction to RISC-V basic keywords
