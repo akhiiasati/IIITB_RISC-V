@@ -50,7 +50,7 @@ To use the installed toolchain, add its path to your PATH variable. Open your .b
 ```bash
 gedit ~/.bashrc
 ```
-Add the following line at the end of the file, replacing '<username>' with your actual username:
+Add the following line at the end of the file, replacing " < username > " with your actual username:
 
 ```bash
 export PATH="/home/<username>/riscv_toolchain/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin:$PATH"
