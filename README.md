@@ -340,4 +340,52 @@ Execute the compiled object file using the RISC-V Spike simulator:
 
     spike pk unsignedHighest.o
 
-This concludes the documentation that sheds light on the representation of unsigned numbers within the RISC-V architecture. The provided C code demonstrates various scenarios and their outcomes pertaining to unsigned numbers. The document also outlines the process of compiling and executing the code using the RISC-V toolchain and Spike simulator.
+![Screenshot from 2023-08-20 22-51-25](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/bc98fd52-aad8-4f35-a585-b0bce6517c79) 
+
+### Exploring signed Number Representation in RISC-V
+
+This section provides insights into a C code snippet that showcases the behavior of signed numbers within the RV64I instruction set of the RISC-V architecture. The code is designed to determine and demonstrate the maximum and minimum values that can be stored using signed 64-bit integers. The code snippet, along with compilation and execution instructions, is detailed below:
+
+```bash
+#include<stdio.h>
+#include<math.h>
+
+int main()
+{
+    long long int max = (long long int)(pow(2,63)-1);
+    long long int min = (long long int)(pow(-2,63));
+    printf("Highest number represented by long long int is %lld \n", max);
+    printf("Smallest number represented by long long int is %lld \n", min);
+    return 0;
+}
+```
+
+#### Explanation and Execution:
+
+By employing the mathematical function pow(), this code determines the maximum and minimum values that a 64-bit signed integer can hold:
+
+    max: This variable calculates and displays the result of (2^63)-1. This represents the highest value that a 64-bit signed integer can represent.
+
+    min: This variable computes and prints the result of -2^63, which is the smallest value that a 64-bit signed integer can represent.
+
+The code then uses printf() to display the calculated values for both the maximum and minimum signed numbers.
+
+Compiling and Executing the Code:
+
+For compiling and running the C code using the RISC-V GNU toolchain, follow these steps:
+
+Compile the C code using the RISC-V GCC compiler:
+
+```bash
+riscv64-unknown-elf-gcc -Ofast -mabi=lp64 -march=rv64i -o signedHighest.o signedHighest.c 
+```
+
+Run the compiled object file using the RISC-V Spike simulator:
+
+    spike pk signedHighest.o 
+
+Output of the Execution:
+
+Upon running the code with the provided instructions, you will see the output that displays the highest and smallest numbers representable by a long long integer in the RV64I architecture.
+
+![Screenshot from 2023-08-20 22-57-53](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/4dc7a451-d51c-4c77-9f9a-5065d315d866)
