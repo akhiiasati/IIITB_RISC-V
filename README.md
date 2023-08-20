@@ -162,11 +162,12 @@ Compilation:
 ```bash
 riscv64-unknown-elf-gcc -O1 -mabi=lp64 -march=rv64i -o sum1ton_O1.o sum1ton.c
 ```
-This command is used to compile a C source file named sum1ton.c into an object file named sum1ton_O1.o using the RISC-V GCC compiler (riscv64-unknown-elf-gcc). Here's what each flag does:
+This command uses the RISC-V architecture-based GCC compiler to compile the C source file sum1ton.c into an object file named sum1ton_O1.o. Here's the breakdown of the flags used:
 
--O1: Specifies the optimization level. In this case, optimization level 1 is used.
--mabi=lp64: Sets the ABI (Application Binary Interface) to use 64-bit integers and pointers.
--march=rv64i: Specifies the target architecture, in this case, the base integer instructions of the RV64I architecture.
+- -O1: Specifies the optimization level as 1, representing a basic level of optimization.
+- -mabi=lp64: Sets the ABI to "Long and Pointer 64-bit," indicating the size of long integers and pointers is 64 bits.
+- -march=rv64i: Generates code for the RISC-V ISA with the base integer instruction set.
+- -o sum1ton_O1.o: Specifies the output filename as sum1ton_O1.o.
 
 Disassembly:
 
@@ -174,7 +175,7 @@ To view the disassembled code, use the riscv64-unknown-elf-objdump command:
 ```bash
 riscv64-unknown-elf-objdump -d sum1ton_O1.o | less
 ```
-This command disassembles the compiled object file sum1ton_O1.o using the riscv64-unknown-elf-objdump tool. The -d flag tells objdump to display the disassembled code. The | less part of the command pipes the output of objdump into the less command, which allows you to view the disassembled code interactively.
+- This command disassembles the compiled object file sum1ton_O1.o using the riscv64-unknown-elf-objdump tool. The -d flag tells objdump to display the disassembled code. The | less part of the command pipes the output of objdump into the less command, which allows you to view the disassembled code interactively.
 
 Execution on Spike Simulator:
 
@@ -182,7 +183,7 @@ Execution on Spike Simulator:
 spike pk sum1ton_O1.o
 ```
 
-This command uses the spike simulator to execute the compiled program sum1ton_O1.o. The pk argument indicates that you want to run a "proxy kernel" program. In this case, the program sum1ton_O1.o is executed on the simulated RISC-V architecture provided by the Spike simulator.
+- This command uses the spike simulator to execute the compiled program sum1ton_O1.o. The pk argument indicates that you want to run a "proxy kernel" program. In this case, the program sum1ton_O1.o is executed on the simulated RISC-V architecture provided by the Spike simulator.
 
 
 This series of steps transforms the C code into RISC-V assembly code, compiles it, and then executes it using the Spike simulator, providing insights into how the C program operates in terms of RISC-V instructions. The -O1 optimization level in the compilation can affect the generated assembly code, optimizing it for performance while maintaining the functional behavior of the original C code.
