@@ -330,7 +330,7 @@ By uncommenting different lines in the code, various scenarios are demonstrated 
 
     Line 6: Calculates and prints the result of 1024. In this case, the value of max is smaller than (2^64)-1.
 
-Compiling and Executing the Code:
+#### Compiling and Executing the Code:
 
 For compiling and executing the C code using the RISC-V GNU toolchain, follow these steps:
 ```bash
@@ -370,7 +370,7 @@ By employing the mathematical function pow(), this code determines the maximum a
 
 The code then uses printf() to display the calculated values for both the maximum and minimum signed numbers.
 
-Compiling and Executing the Code:
+#### Compiling and Executing the Code:
 
 For compiling and running the C code using the RISC-V GNU toolchain, follow these steps:
 
@@ -384,8 +384,9 @@ Run the compiled object file using the RISC-V Spike simulator:
 
     spike pk signedHighest.o 
 
-Output of the Execution:
+#### Output of the Execution:
 
 Upon running the code with the provided instructions, you will see the output that displays the highest and smallest numbers representable by a long long integer in the RV64I architecture.
 
 ![Screenshot from 2023-08-20 22-57-53](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/4dc7a451-d51c-4c77-9f9a-5065d315d866)
+
