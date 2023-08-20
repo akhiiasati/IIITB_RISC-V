@@ -261,6 +261,8 @@ Note: When compiling the same C code in "Ofast" mode, it utilizes a smaller numb
 
 ### Data Representation and Storage in RISC-V
 
+![Screenshot (30)](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/5ea8ed17-c77b-4b0d-b5d2-58ef6a980c1b)
+
 In RISC-V and computer architecture in general, several terms relate to data representation and storage. Let's explore them:
 
 - Byte: A byte is the fundamental unit of data storage and representation in computers. It consists of 8 bits and can represent a single character or value.
