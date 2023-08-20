@@ -1,6 +1,6 @@
 # RISC-V
 
-### Course of content
+### Table of content
 - [RISC-V Toolchain Installation Guide](#risc-v-toolchain-installation-guide)
 - [Day 1: Introduction to RISC-V ISA and GNU compiler toolchain](#day-1-introduction-to-risc-v-isa-and-gnu-compiler-toolchain)
 - [Day 2: Introduction to ABI and basic verification flow](#day-2-introduction-to-abi-and-basic-verification-flow)
@@ -65,28 +65,17 @@ source ~/.bashrc
 ```
 
 # Day 1: Introduction to RISC-V ISA and GNU compiler toolchain
+- [RISC-V: A Transformative ISA for Innovation](risc-v-a-transformative-isa-for-innovation)
+### RISC-V: A Transformative ISA for Innovation
 
-### Instruction Set Architecture (ISA)
-An Instruction Set Architecture (ISA) is a set of rules and specifications that define the instructions that a computer's processor can execute. It serves as a crucial interface between the hardware (the physical components of the computer) and the software (the programs and applications that run on the computer). The ISA essentially provides a standardized way for software to communicate with and utilize the underlying hardware resources.
+RISC-V, short for "Reduced Instruction Set Computing - Five," introduces a groundbreaking instruction set architecture (ISA) born from a commitment to advancing computer architecture research and education. Embracing an open-source ethos and adaptability, RISC-V empowers diverse implementations and customizations.
 
-Key aspects of an ISA include:
+The origin of the RISC acronym dates back to 1980, attributed to Prof. David Patterson of UC Berkeley and Prof. John Hennessy of Stanford University. Their pioneering work culminated in acclaimed books and an ACM Turing Award in 2017. The fifth evolution, RISC-V, emerged around 2010.
 
-1. Instruction Formats: The ISA specifies the structure of instructions that the processor can execute. This includes fields for the operation to be performed, the operands involved, and addressing modes.
-2. Operations: The ISA defines the set of basic operations or instructions that the processor can execute. These operations include arithmetic operations (add, subtract, multiply, divide), logical operations (AND, OR, NOT), memory operations (load, store), and control operations (branch, jump).
-3. Registers: The ISA specifies the number and types of registers available in the processor. Registers are used to hold data temporarily during calculations, improving processing speed.
-4. Memory Organization: The ISA outlines how the computer interacts with memory, including addressing modes and instructions for loading and storing data.
-5. Data Types: The types of data that the processor can handle, such as integers, floating-point numbers, characters, and more, are defined in the ISA.
-6. Addressing Modes: How memory addresses are calculated and used to access data in memory is detailed in the ISA.
-7. Control Flow: The ISA provides instructions for controlling the flow of program execution, including branching to different parts of the program and handling interrupts and exceptions.
-8. Privilege Levels: Some ISAs have multiple privilege levels to manage access to system resources and ensure security.
-9. Endianness: The order in which multi-byte data is stored in memory (little-endian or big-endian) is specified by the ISA.
+As a RISC architecture, RISC-V follows a load-store approach and employs IEEE 754 floating-point for precision. It boasts noteworthy features, including strategically positioned instruction bit fields for simplified CPU design, architectural neutrality, and an optimized sign-extension mechanism.
 
-Different computer architectures (like x86, ARM, and RISC-V) have their own distinct ISAs. The ISA is crucial because it enables software developers to write code that is compatible with a specific processor or family of processors. It also allows hardware designers to create processors that can execute a wide range of software written for that ISA.
+In essence, RISC-V stands as an emblem of innovation, backed by decades of research, embodying open principles, and poised to reshape the landscape of instruction set architectures.
 
-
-
-### RISC-V ISA
-RISC-V, which stands for "Reduced Instruction Set Computing - Five," is a revolutionary instruction set architecture (ISA) initially designed to support research and education in the field of computer architecture. The architecture is characterized by its open-source nature and flexibility, enabling various implementations and adaptations.
 
 - Base and Optional Extensions:
 
