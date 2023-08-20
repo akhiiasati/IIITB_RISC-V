@@ -68,6 +68,11 @@ source ~/.bashrc
 - [RISC-V: A Transformative ISA for Innovation](#risc-v-a-transformative-isa-for-innovation)
 - [RISC-V Characteristics](#risc-v-characteristics)
 - [RISC-V Foundation and RISC-V International](#risc-v-foundation-and-risc-v-international)
+- [RISC-V Architecture](#risc-v-architecture)
+- [ISA base and extensions](#isa-base-and-extensions)
+
+
+
 ### RISC-V: A Transformative ISA for Innovation
 
 RISC-V, known as "Reduced Instruction Set Computing - Five," is a transformative open-source instruction set architecture (ISA) born from a commitment to advancing computer architecture research and education. With its roots tracing back to the pioneering work of Prof. David Patterson and Prof. John Hennessy, RISC-V redefines chip design, embodying decades of research. It follows a RISC approach, strategically positioning instruction bit fields for simplified CPU design and employing IEEE 754 floating-point precision. Unlike traditional ISAs, RISC-V operates under open-source licenses, offering an edge in flexibility, scalability, and innovation. Led by Prof. Krste Asanović, Yunsup Lee, and Andrew Waterman, its accessible framework empowers ease of processor creation and customization, signifying a new era in instruction set architectures.
@@ -94,7 +99,37 @@ Established in 2015, the RISC-V Foundation responded to the need for a stable in
 
 ![risc-v-members](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/251e4e94-c95b-4001-8f2f-02d1be575fc6)
 
+### RISC-V Architecture
+
+![RV12_Arch](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/37da2807-71df-4938-876f-18fde63a8edb)
+
 ![Screenshot 2023-08-20 182714](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/5a6ebdcb-952a-4db2-aa9f-175908a42fd6)
+
+### ISA base and extensions
+
+The RISC-V instruction set architecture (ISA) is organized into a core "base" instruction set and optional "extensions" that provide additional functionality. This modular design allows for flexibility and customization, enabling different implementations tailored to specific application requirements.
+
+| Component          | Description                                        |
+|-------------------|----------------------------------------------------|
+| **ISA Base**      |                                                    |
+| Base Integer      | Integer arithmetic and logical operations          |
+| Base Load/Store   | Load and store instructions                        |
+| Base Control Flow | Control flow instructions (branches and jumps)    |
+| Base System       | System-related instructions (e.g., environment)   |
+| **Extensions**    |                                                    |
+| **M** Extension   | Integer multiplication and division instructions |
+| **A** Extension   | Atomic memory operations                          |
+| **F** Extension   | Single-precision floating-point operations       |
+| **D** Extension   | Double-precision floating-point operations       |
+| **C** Extension   | Compressed instructions                           |
+| **G** Extension   | Additional general-purpose registers             |
+| **I** Extension   | Custom fixed-point instructions                  |
+| **V** Extension   | Vector processing instructions                   |
+| **B** Extension   | Bit manipulation instructions                    |
+| **T** Extension   | Transactional memory support                     |
+| **J** Extension   | Dynamic linking and JIT compilation support      |
+| **P** Extension   | Packed-SIMD instructions                         |
+
 
 ### Introduction to RISC-V basic keywords
 
