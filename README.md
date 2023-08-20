@@ -390,3 +390,5 @@ Upon running the code with the provided instructions, you will see the output th
 
 ![Screenshot from 2023-08-20 22-57-53](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/4dc7a451-d51c-4c77-9f9a-5065d315d866)
 
+#### Different Data-Types:
+![Screenshot 2023-08-20 230354](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/18a4af69-0424-4557-84be-f18ddc7cea61)
