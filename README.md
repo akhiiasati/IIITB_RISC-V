@@ -73,6 +73,7 @@ source ~/.bashrc
   - [ISA base and extensions](#isa-base-and-extensions)
   - [From Application Software to Hardware Execution: A Flow Overview](#from-application-software-to-hardware-execution-a-flow-overview)
 - [Labwork for RISC-V software toolchain](#labwork-for-risc-v-software-toolchain)
+- [Data Representation and Storage in RISC-V](#data-representation-and-storage-in-risc-v)
 
 
 ### RISC-V: A Transformative ISA for Innovation
