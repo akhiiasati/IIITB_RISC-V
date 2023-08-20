@@ -11,13 +11,13 @@
 This guide outlines the steps to install a RISC-V toolchain on a Linux system. The toolchain is necessary for RISC-V development and includes various dependencies.
 
 ### Installation Steps
-1. Install Dependencies
+#### 1. Install Dependencies
 
 Install the required dependencies using the following command:
 ```bash
 sudo apt-get install libboost-regex-dev
 ```
-2. Clone the Repository
+#### 2. Clone the Repository
 
 Clone the RISC-V workshop collaterals repository:
 
@@ -28,7 +28,7 @@ chmod +x run.sh
 ./run.sh
 ```
 Ignore any make errors that may occur during this step.
-3. Install Icarus Verilog
+#### 3. Install Icarus Verilog
 
 Navigate to the Icarus Verilog directory and set up Icarus Verilog:
 
@@ -42,7 +42,7 @@ chmod 777 autoconf.sh
 make
 sudo make install
 ```
-4. Set up PATH Variable
+#### 4. Set up PATH Variable
 
 To use the installed toolchain, add its path to your PATH variable. Open your .bashrc file:
 
@@ -55,7 +55,7 @@ Add the following line at the end of the file, replacing '<username>' with your 
 export PATH="/home/<username>/riscv_toolchain/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin:$PATH"
 ```
 Save and close the .bashrc file.
-5. Update Environment
+#### 5. Update Environment
 
 Update your environment by sourcing the .bashrc file:
 
