@@ -1,14 +1,13 @@
 # RISC-V
 
 ### Course of content
+- [RISC-V Toolchain Installation Guide](#risc-v-toolchain-installation-guide)
 - [Day 1: Introduction to RISC-V ISA and GNU compiler toolchain](#day-1-introduction-to-risc-v-isa-and-gnu-compiler-toolchain)
 - [Day 2: Introduction to ABI and basic verification flow](#day-2-introduction-to-abi-and-basic-verification-flow)
 - [Day 3: Digital Logic with TL-Verilog and Makerchip](#day-3-digital-logic-with-tl-verilog-and-makerchip)
 
 
-# Day 1: Introduction to RISC-V ISA and GNU compiler toolchain
-- [RISC-V Toolchain Installation Guide](#risc-v-toolchain-installation-guide)
-## RISC-V Toolchain Installation Guide
+# RISC-V Toolchain Installation Guide
 
 This guide outlines the steps to install a RISC-V toolchain on a Linux system. The toolchain is necessary for RISC-V development and includes various dependencies.
 
@@ -64,6 +63,9 @@ Update your environment by sourcing the .bashrc file:
 ```bash
 source ~/.bashrc
 ```
+
+# Day 1: Introduction to RISC-V ISA and GNU compiler toolchain
+
 ### Instruction Set Architecture (ISA)
 An Instruction Set Architecture (ISA) is a set of rules and specifications that define the instructions that a computer's processor can execute. It serves as a crucial interface between the hardware (the physical components of the computer) and the software (the programs and applications that run on the computer). The ISA essentially provides a standardized way for software to communicate with and utilize the underlying hardware resources.
 
