@@ -66,7 +66,7 @@ source ~/.bashrc
 
 # Day 1: Introduction to RISC-V ISA and GNU compiler toolchain
 - [RISC-V: A Transformative ISA for Innovation](#risc-v-a-transformative-isa-for-innovation)
-- [Features of RISC-V](#features-of-risc-v)
+- [RISC-V Characteristics](#risc-v-characteristics)
 - [RISC-V Foundation and RISC-V International](#risc-v-foundation-and-risc-v-international)
 ### RISC-V: A Transformative ISA for Innovation
 
@@ -75,18 +75,18 @@ RISC-V, known as "Reduced Instruction Set Computing - Five," is a transformative
 ![riscv_social](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/d180be06-b618-466d-82ef-7fe5bf0fd92a)
 
 
-### Features of RISC-V:
-Free and Open-Source: RISC-V operates on an open-source model, eliminating the need for IP payment. Unlike other commercial ISAs, RISC-V encourages accessibility and collaboration.
+### RISC-V Characteristics
 
-Simplicity: RISC-V's footprint is notably smaller compared to conventional ISAs. Its streamlined design promotes efficiency and ease of implementation.
-
-Modularity: RISC-V boasts a compact standard base ISA, accompanied by various standard extensions. This modular approach enables tailoring to specific application needs.
-
-Stability: The base and initial standard extensions of RISC-V are already finalized and stable. This stability mitigates concerns about disruptive major updates.
-
-Extensibility: RISC-V's architecture accommodates the addition of specific functionalities via extensions. The ongoing development of extensions, such as the Vector extension, enhances RISC-V's capabilities.
-
-In essence, RISC-V’s open nature, simplicity, modularity, stability, and extensibility redefine the landscape of instruction set architectures, setting it apart from established ARM and x86 alternatives.
+- Is a proven ISA and follows established RISC design principles
+- Has single-cycle instructions
+- Uses a load-store architecture
+- Features a simple, stable, software-centric design (small, fixed base with modular fixed-standard extensions)
+- Is modular, layered and extensible, allowing for software and hardware freedom on architecture
+- Flexible and scalable (i.e., suitable for microcontrollers to personal computers to supercomputers)
+- Has 32- and 64-bit variants and extensions to support floating point instructions
+- Is supported by various language compilers (e.g., GNU Compiler Collection and Linux operating system)
+- Offers a range of hardware support from microcontrollers to systems on module, systems on chip and field programmable gate arrays
+- Accelerates the design-to-market timeline through collaboration and open source IP reuse
 
 ### RISC-V Foundation and RISC-V International
 
