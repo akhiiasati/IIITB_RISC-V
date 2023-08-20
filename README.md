@@ -70,7 +70,7 @@ source ~/.bashrc
 - [RISC-V Foundation and RISC-V International](#risc-v-foundation-and-risc-v-international)
 - [RISC-V Architecture](#risc-v-architecture)
 - [ISA base and extensions](#isa-base-and-extensions)
-- [From Application Software to Hardware Execution: A Flow Overview](#from-pplication-software-to-hardware-execution-a-flow-overview)
+- [From Application Software to Hardware Execution: A Flow Overview](#from-application-software-to-hardware-execution-a-flow-overview)
 
 
 
