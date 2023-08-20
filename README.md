@@ -291,3 +291,53 @@ Unsigned numbers don't have any sign; they can only contain the magnitude of the
 #### Signed Numbers:
 Generally, the 2's complement representation is used for signed numbers. The 2’s complement of a number is obtained by inverting each bit of the given number and adding 1 to the least significant bit (LSB). Positive numbers are represented in binary form, while negative numbers are represented in 2’s complement form. An extra bit is used for sign representation. If the value of the sign bit is 0, the number is positive and can be directly represented in a simple binary form. If the value of the sign bit is 1, the number is negative, and the 2’s complement of the given binary number should be taken. In this representation, zero (0) has only one (unique) representation, which is always positive. The range of 2’s complement form is from (-2^(n-1)) to ((2^(n-1))-1).
 
+### Exploring Unsigned Number Representation in RISC-V
+
+This section focuses on a C code snippet that demonstrates the concept of unsigned numbers in the RISC-V architecture. The code's purpose is to calculate and illustrate the highest value that an unsigned number can represent within the RV64I instruction set. We provide in-depth explanations and instructions, thoroughly explaining the code's features and functionality:
+
+```bash
+#include<stdio.h>
+#include<math.h>
+
+int main()
+{
+    unsigned long long int max = (unsigned long long int)(pow(2,64)-1); //Line 1
+    // unsigned long long int max = (unsigned long long int)(pow(2,127)-1);// Line 2
+    // unsigned long long int max = (unsigned long long int)(pow(2,64)*-1);// Line 3
+    // unsigned long long int max = (unsigned long long int)(pow(-2,64)-1);// Line 4
+    // unsigned long long int max = (unsigned long long int)(pow(-2,63)-1);// Line 5
+    // unsigned long long int max = (unsigned long long int)(pow(2,10)-1);// Line 6
+    printf("Highest number represented by unsigned long long int is %llu \n", max);
+    return 0;
+}
+```
+#### Explanation and Execution:
+
+    %llu: Format specifier for printing a 64-bit unsigned integer.
+    %lld: Format specifier for printing a 64-bit signed integer.
+
+By uncommenting different lines in the code, various scenarios are demonstrated along with their outcomes:
+
+    Line 1: Calculates and prints the result of (2^64)-1. This represents the highest value that can be stored in a 64-bit unsigned integer.
+
+    Line 2: While the code attempts to calculate (2^127)-1, it actually yields (2^64)-1 since the maximum value a 64-bit unsigned integer can represent is (2^64)-1.
+
+    Line 3: Calculates and prints the result of 0. This occurs due to the fact that the minimum unsigned value that a 64-bit register can store is 0.
+
+    Line 4: Calculates and prints the result of 0. Similar to Line 3, this result exceeds the representable range for a 64-bit unsigned integer.
+
+    Line 5: Calculates and prints the result of 0. As with Lines 3 and 4, the minimum representable value in a 64-bit unsigned integer is 0.
+
+    Line 6: Calculates and prints the result of 1024. In this case, the value of max is smaller than (2^64)-1.
+
+Compiling and Executing the Code:
+
+For compiling and executing the C code using the RISC-V GNU toolchain, follow these steps:
+```bash
+riscv64-unknown-elf-gcc -Ofast -mabi=lp64 -march=rv64i -o unsignedHighest.o unsignedHighest.c
+```
+Execute the compiled object file using the RISC-V Spike simulator:
+
+    spike pk unsignedHighest.o
+
+This concludes the documentation that sheds light on the representation of unsigned numbers within the RISC-V architecture. The provided C code demonstrates various scenarios and their outcomes pertaining to unsigned numbers. The document also outlines the process of compiling and executing the code using the RISC-V toolchain and Spike simulator.
