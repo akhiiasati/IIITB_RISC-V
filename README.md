@@ -187,3 +187,34 @@ spike pk sum1ton_O1.o
 
 
 This series of steps transforms the C code into RISC-V assembly code, compiles it, and then executes it using the Spike simulator, providing insights into how the C program operates in terms of RISC-V instructions. The -O1 optimization level in the compilation can affect the generated assembly code, optimizing it for performance while maintaining the functional behavior of the original C code.
+
+
+### Debugging with Spike:
+```bash
+spike -d pk sum1ton_O1.o
+```
+This command starts the Spike simulator in debug mode (-d) and specifies that the program sum1ton_O1.o should be executed using the proxy kernel (pk).
+
+Setting Breakpoint:
+```bash
+until pc 0 10184
+```
+This command sets a breakpoint at address 0x10184. This breakpoint will pause the execution when the program's Program Counter (PC) reaches that specific address.
+
+Inspecting Register:
+```bash
+reg 0 sp
+```
+This command inspects the value stored in register a0 (stack pointer) and displays its current value.
+
+Executing Line by Line:
+Press "Enter" to execute the program line by line after setting the breakpoint. The program will execute one line at a time, and you can observe the register values and memory changes as the program progresses.
+
+Inspecting Another Register:
+
+```bash
+reg 0 a2
+```
+This command inspects the value stored in register a2 and displays its current value.
+
+Using these commands in the Spike simulator, you can step through the program's execution line by line, inspecting register values and memory changes at each step. This can be helpful for debugging and understanding the behavior of the program.
