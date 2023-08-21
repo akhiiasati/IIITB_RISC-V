@@ -664,7 +664,7 @@ Execute the script rv32im.sh which contains the necessary commands to convert C 
 
 - [Logic Gates](#logic-gates)
 - [Transaction-Level Verilog (TL-Verilog): An Overview](#transaction-level-verilog-(tl-verilog)-an-overview)
-  - [Introduction](#introduction)
+  - [Overview](#overview)
   - [TL-Verilog Advantages](#tk-verilog-advantages)
   - [TL-Verilog vs. SystemVerilog: A Comparison](#tl-verilog-vs-systemverilog-a-comparison)
   - [Timing Abstract in TL-Verilog](#timing-abstract-in-tl-verilog)
@@ -703,7 +703,7 @@ In this code, input a holds the highest priority, and input d holds the lowest. 
 
 ## Transaction-Level Verilog (TL-Verilog): An Overview
 
-### Introduction:
+### Overview:
 
 Transaction-Level Verilog (TL-Verilog) is an emerging extension to SystemVerilog, offering a new design methodology known as transaction-level design. This approach simplifies the design process by introducing concepts that focus on transactions and abstracting away lower-level hardware details. In this project, TL-Verilog has been chosen as the Hardware Description Language (HDL) of choice, enabling the complete design of projects using this innovative approach.
 
