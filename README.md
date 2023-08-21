@@ -618,4 +618,39 @@ The combined effect of the flow chart and the ABI interaction demonstration prov
 
 ![Screenshot (54)](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/17aec548-945a-456b-86e4-bd7244845ca7)
 
+## RISC-V Basic Verification Flow using Iverilog Demo
+
+This section outlines the verification process for a RISC-V CPU using the Iverilog simulator. The verification involves converting C code to a HEX file, providing it to the RISC-V CPU, and then verifying the output. The following block diagram illustrates the verification flow:
+
+![Screenshot (56)](https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog/assets/43675821/8a8274ba-fc42-4756-a2b2-c5706f2643fe)
+
+### Verification Flow Description
+
+- Conversion to HEX File: The first step involves converting the C code into a HEX file. This file will contain the machine code representation of the C program that the RISC-V CPU can understand.
+- Providing HEX File to RISC-V CPU: The HEX file is fed to the RISC-V CPU. The CPU processes the instructions and performs computations based on the provided program.
+- Output and Verification: After executing the program, the RISC-V CPU produces an output. This output is then verified to ensure it matches the expected outcome, validating the correctness of the CPU's execution.
+
+### Demonstration
+
+To observe this verification flow in action, follow these steps:
+
+Navigate to the lab directory using the following command:
+
+```bash
+cd ~/riscv_workshop_collaterals/labs/
+```
+Make the script executable with the following command:
+
+```bash
+chmod 777 rv32im.sh
+```
+Execute the script rv32im.sh which contains the necessary commands to convert C code to a HEX file and run the verification process:
+
+```bash
+./rv32im.sh
+```
+
+#### Outputs 
+
+
 
