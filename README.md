@@ -405,7 +405,7 @@ Upon running the code with the provided instructions, you will see the output th
   - [Register File](#register-file)
   - [Types of Instructions](#types-of-instructions)
   - [Register Accessibility and Representation](#register-accessibility-and-representation)
-
+- [Labwork of ABI](#labwork-of-abi)
 ## Base Integer Instruction Set RV64I
 
 RV64I serves as the base integer instruction set for the 64-bit architecture, building upon the RV32I variant. While RV64I shares most instructions with RV32I, there are differences in register width and additional instructions in RV64I. The base integer instruction set comprises 47 instructions, derived from both RV32I and RV64I (35 from RV32I and 12 from RV64I). Below are the instructions:
@@ -530,6 +530,68 @@ S-type Instructions: These instructions operate on source registers and immediat
 
 #### Register Accessibility and Representation
 In the RISC-V architecture, the registers accessed by R-type, I-type, or S-type Instructions are limited to 5 bits. Consequently, the total number of representable registers is 2^5 = 32. As a result, there are 32 registers available (from x0 to x31) in the RISC-V architecture. Proper management of these registers through different instruction formats ensures efficient and effective execution of programs.
+
+## Labwork of ABI
+
+Consider the following example involving C and assembly code:
+
+```bash
+#include <stdio.h>
+
+extern int load(int x, int y);
+
+int main()
+{
+    int result = 0;
+    int count = 9;
+    result = load(0x0, count + 1);
+    printf("Sum of numbers from 1 to %d is %d\n", count, result);
+}
+```
+
+#### Assembly Code (ASM)
+
+```bash
+.section .text 
+.global load
+.type load, @function
+
+load:
+    add a4, a0, zero
+    add a2, a0, a1
+    add a3, a0, zero
+loop: 
+    add a4, a3, a4
+    addi a3, a3, 1
+    blt a3, a2, loop
+    add a0, a4, zero
+    ret
+
+```
+
+In this example, the C code interacts with the assembly code via the load function. The flowchart of the function performed by the assembly code is illustrated visually.
+
+The ABI enables the C code to pass values to the assembly code through the load function. The assembly code executes the function, returns the result to the C code, and the C code displays the value.
+
+#### Steps to Perform the Lab Task:
+
+Compile the C and assembly code using riscv64-unknown-elf-gcc with optimization, ABI, and architecture flags:
+
+```bash
+riscv64-unknown-elf-gcc -Ofast -mabi=lp64 -march=rv64i -o custom1_to9.o custom1_to_9.c load.S
+```
+Disassemble the compiled object file using riscv64-unknown-elf-objdump and view the output using less:
+
+```bash
+riscv64-unknown-elf-objdump -d custom1_to9.o | less
+```
+Run the compiled code using the Spike RISC-V simulator:
+```bash
+spike pk custom1_to9.o
+```
+
+#### Outputs of the Lab
+
 
 
 
