@@ -291,6 +291,8 @@ Unsigned numbers don't have any sign; they can only contain the magnitude of the
 #### Signed Numbers:
 Generally, the 2's complement representation is used for signed numbers. The 2’s complement of a number is obtained by inverting each bit of the given number and adding 1 to the least significant bit (LSB). Positive numbers are represented in binary form, while negative numbers are represented in 2’s complement form. An extra bit is used for sign representation. If the value of the sign bit is 0, the number is positive and can be directly represented in a simple binary form. If the value of the sign bit is 1, the number is negative, and the 2’s complement of the given binary number should be taken. In this representation, zero (0) has only one (unique) representation, which is always positive. The range of 2’s complement form is from (-2^(n-1)) to ((2^(n-1))-1).
 
+![Screenshot (52)](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/a9a458ef-8715-4634-be75-58b533f29656)
+
 ### Exploring Unsigned Number Representation in RISC-V
 
 This section focuses on a C code snippet that demonstrates the concept of unsigned numbers in the RISC-V architecture. The code's purpose is to calculate and illustrate the highest value that an unsigned number can represent within the RV64I instruction set. We provide in-depth explanations and instructions, thoroughly explaining the code's features and functionality:
