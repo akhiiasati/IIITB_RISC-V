@@ -672,6 +672,7 @@ Execute the script rv32im.sh which contains the necessary commands to convert C 
   - [Key Features](#key-features)
   - [Benefits](#benefits)
   - [Examples: Pythagorean](#examples-pythagorean)
+- [Comabinational Circuits](#comabinational-circuits)
 - [Labs: Combinational Logic on MackerChip IDE](#labs-combinational-logic-on-mackerchip-ide)
   - [Inverter](#inverter)
   - [AND Gate](#and-gate)
@@ -680,7 +681,8 @@ Execute the script rv32im.sh which contains the necessary commands to convert C 
   - [Vector Addition](#vector-addition)
   - [2:1 Multiplexer](#2-1-multiplexer)
   - [Combinational Calculator using TL-Verilog](#combinational-calculator-using-tl-verilog)
-
+- [Sequential Circuits](#sequential-circuits)
+- [Labs: Sequential Logic on MackerChip IDE](#labs-sequential-logic-on-mackerchip-ide)
 ## Logic Gates
 
 Logic gates are fundamental components of digital electronic circuits, serving as the building blocks for logical operations. These gates process input signals and generate output signals based on predefined logic rules. By manipulating binary signals, typically represented as "0" and "1," logic gates enable complex digital systems such as processors, memory units, and controllers. They function by performing logical operations and are designed to work with discrete voltage levels representing binary values.
