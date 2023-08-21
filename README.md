@@ -651,6 +651,6 @@ Execute the script rv32im.sh which contains the necessary commands to convert C 
 ```
 
 #### Outputs 
-
+![Screenshot from 2023-08-21 13-43-33](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/85104ec4-17cc-4dc4-8f69-ef5449f1c626)
 
 
