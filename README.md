@@ -703,7 +703,7 @@ In this code, input a holds the highest priority, and input d holds the lowest. 
 
 ## Transaction-Level Verilog (TL-Verilog): An Overview
 
-### introduction:
+### Introduction:
 
 Transaction-Level Verilog (TL-Verilog) is an emerging extension to SystemVerilog, offering a new design methodology known as transaction-level design. This approach simplifies the design process by introducing concepts that focus on transactions and abstracting away lower-level hardware details. In this project, TL-Verilog has been chosen as the Hardware Description Language (HDL) of choice, enabling the complete design of projects using this innovative approach.
 
