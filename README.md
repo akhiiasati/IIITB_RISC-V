@@ -1004,4 +1004,3 @@ This code emulates a normal calculator where the result of the previous operatio
 ![Screenshot 2023-08-21 192031](https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog/assets/43675821/c1e4155b-0fbc-4c8f-8eb7-835241b5b19e)
 ![Screenshot 2023-08-21 192039](https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog/assets/43675821/b4129363-96ab-4696-8be0-2f90631c9699)
 
-
