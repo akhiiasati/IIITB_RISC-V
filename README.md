@@ -660,4 +660,5 @@ Execute the script rv32im.sh which contains the necessary commands to convert C 
 #### Outputs 
 ![Screenshot from 2023-08-21 13-45-31](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/1d7d1736-7c9e-436d-8c37-a91f2f8b1eaa)
 
+# Day 3: Digital Logic with TL-Verilog and Makerchip
 
