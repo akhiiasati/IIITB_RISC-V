@@ -556,21 +556,19 @@ int main()
 #### Assembly Code (ASM)
 
 ```bash
-.section .text 
+.section .text
 .global load
 .type load, @function
 
 load:
-    add a4, a0, zero
-    add a2, a0, a1
-    add a3, a0, zero
-loop: 
-    add a4, a3, a4
-    addi a3, a3, 1
-    blt a3, a2, loop
-    add a0, a4, zero
-    ret
-
+	add 	a4, a0, zero //Initialize sum register a4 with 0x0
+	add 	a2, a0, a1   // store count of 10 in register a2. Register a1 is loaded with 0xa (decimal 10) from main program
+	add	a3, a0, zero // initialize intermediate sum register a3 by 0
+loop:	add 	a4, a3, a4   // Incremental addition
+	addi 	a3, a3, 1    // Increment intermediate register by 1	
+	blt 	a3, a2, loop // If a3 is less than a2, branch to label named <loop>
+	add	a0, a4, zero // Store final result to register a0 so that it can be read by main program
+	ret
 ```
 
 In this example, the C code interacts with the assembly code via the load function. The flowchart of the function performed by the assembly code is illustrated visually.
@@ -582,19 +580,21 @@ The ABI enables the C code to pass values to the assembly code through the load 
 Compile the C and assembly code using riscv64-unknown-elf-gcc with optimization, ABI, and architecture flags:
 
 ```bash
-riscv64-unknown-elf-gcc -Ofast -mabi=lp64 -march=rv64i -o custom1_to9.o custom1_to_9.c load.S
+riscv64-unknown-elf-gcc -Ofast -mabi=lp64 -march=rv64i -o 1to9_custom.o 1to9_custom.c load.S
 ```
 Disassemble the compiled object file using riscv64-unknown-elf-objdump and view the output using less:
 
 ```bash
-riscv64-unknown-elf-objdump -d custom1_to9.o | less
+riscv64-unknown-elf-objdump -d 1to9_custom.o | less
 ```
 Run the compiled code using the Spike RISC-V simulator:
 ```bash
-spike pk custom1_to9.o
+spike pk 1to9_custom.o
 ```
 
 #### Outputs of the Lab
+
+![Screenshot from 2023-08-21 13-20-24](https://github.com/akhiiasati/Akhil_IIITB/assets/43675821/6b283f1d-2d65-4c56-9d13-c1e4a3ac4c7a)
 
 Flow Chart and ABI Illustration
 The flow chart below represents the sequence of operations performed by the assembly code within the load function:
