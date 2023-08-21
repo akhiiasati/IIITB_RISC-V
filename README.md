@@ -841,7 +841,6 @@ $out = $sel ? $in1 : $in0;
 ![Screenshot 2023-08-21 181228](https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog/assets/43675821/cade91f7-f7b9-43f5-9507-8a2682a31acb)
 ![Screenshot 2023-08-21 181240](https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog/assets/43675821/92cb2fa3-8e06-4c93-8b10-ace6fd5c5a01)
 
-2:1 Vector Multiplexer
 
 ### The TL-Verilog code for a 2:1 vector multiplexer is shown below:
 
@@ -852,4 +851,45 @@ $out[7:0] = $sel ? $in1[7:0] : $in0[7:0];
 ![Screenshot 2023-08-21 181354](https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog/assets/43675821/a9165b98-5695-4ea8-9590-db43e52c7c2c)
 ![Screenshot 2023-08-21 181405](https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog/assets/43675821/328067c7-d12a-4b95-9fa4-9c95e3a71ab2)
 
+### Combinational Calculator using TL-Verilog
+This documentation presents a Combinational Calculator implemented using Transaction-Level Verilog (TL-Verilog). The calculator performs various arithmetic operations based on the provided opcode.
 
+#### TL-Verilog Code
+
+The TL-Verilog code for the Combinational Calculator is shown below:
+
+```tl
+$reset = *reset;
+$op[1:0] = $random[1:0];
+
+$val1[31:0] = $rand1[3:0];
+$val2[31:0] = $rand2[3:0];
+$sum[31:0] = $val1 + $val2;
+$diff[31:0] = $val1 - $val2;
+$prod[31:0] = $val1 * $val2;
+$div[31:0] = $val1 / $val2;
+
+$out[31:0] = $op[1] ? ($op[0] ? $div : $prod) : ($op[0] ? $diff : $sum);
+```
+#### Function Table
+
+The function table for the Combinational Calculator is provided below:
+
+| Opcode | Function         |
+|--------|------------------|
+| 2'b00  | Addition         |
+| 2'b01  | Subtraction      |
+| 2'b10  | Multiplication   |
+| 2'b11  | Division         |
+
+
+#### How it Works
+
+- The calculator receives a reset signal (*reset) to initialize the calculations.
+- A 2-bit opcode ($op[1:0]) is randomly generated, determining the arithmetic operation to be performed.
+- Two 4-bit random values ($rand1[3:0] and $rand2[3:0]) are generated as operands.
+- The calculator performs addition, subtraction, multiplication, and division operations on the operands.
+- Based on the opcode, the output ($out[31:0]) is determined by selecting the appropriate result.
+
+![Screenshot 2023-08-21 183813](https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog/assets/43675821/965101d9-cc6c-4103-a88d-faa31ade6ec9)
+![Screenshot 2023-08-21 183827](https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog/assets/43675821/6a6fedc6-d773-49ef-9964-0ce874676f24)
