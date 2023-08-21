@@ -678,7 +678,7 @@ Execute the script rv32im.sh which contains the necessary commands to convert C 
   - [OR Gate](#or-gate)
   - [XOR Gate](#xor-gate)
   - [Vector Addition](#vector-addition)
-  - [2:1 Multiplexer](#2:1-multiplexer)
+  - [2:1 Multiplexer](#2-1-multiplexer)
   - [Combinational Calculator using TL-Verilog](#combinational-calculator-using-tl-verilog)
 
 ## Logic Gates
