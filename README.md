@@ -398,7 +398,11 @@ Upon running the code with the provided instructions, you will see the output th
   - [General-Purpose Registers and Operand Types](#general-purpose-registers-and-operand-types)
   - [Instruction Formats and Types](#instruction-formats-and-types)
 - [Application Binary Interface (ABI) in RISC-V](#application-binary-interface-(abi)-in-risc-v)
+  - [Introduction](#introduction)
   - [Key Points about ABI in RISC-V](key-points-about-abi-in-risc-v)
+  - [Register File](#register-file)
+  - [Types of Instructions](#types-of-instructions)
+  - [Register Accessibility and Representation](#register-accessibility-and-representation)
 
 ## Base Integer Instruction Set RV64I
 
@@ -478,6 +482,7 @@ In the RISC-V instruction set architecture, instructions are categorized into di
 
 ## Application Binary Interface (ABI) in RISC-V:
 
+### Introduction
 The Application Binary Interface (ABI), also referred to as the System Call Interface, allows application programmers to directly access the registers of the RISC-V architecture through system calls. This mechanism enables programmers to interact with hardware resources via registers, facilitated by the ABI. The RISC-V ABI defines standardized functions for registers, promoting software interoperability.
 
 The ABI consists of two primary components: the set of user instructions and the system call interface through the operating system layer.
@@ -493,4 +498,36 @@ The RISC-V architecture comprises 32 registers, labeled from x(0) to x(31), with
 - Loading data into registers can be done directly or via memory access.
 - Direct loading into registers is limited by the number of available registers, necessitating the use of memory for larger data sets.
 - Understanding the ABI in RISC-V is crucial for developers working with the architecture, as it provides a standardized approach for interacting with registers and hardware resources.
+
+#### Register File
+
+RISC-V Architecture includes a register file with a total of 32 integer registers and 32 floating-point registers. These registers have specific designated purposes based on their ABI names. The naming convention is crucial for managing these registers efficiently within the architecture. Here are some key points regarding register usage:
+
+Registers starting with 't' (e.g., t0, t1, t2, ..., t6) are temporary registers and can be employed for various purposes as needed.
+
+Registers beginning with 'a' (e.g., a0, a1, ..., a7) serve as argument registers for passing arguments to functions.
+
+Registers that have names starting with 's' (excluding 'sp') are saved registers. They are preserved across function calls and their values are maintained.
+
+<img width="267" alt="regfile" src="https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/a4319fc5-296c-40ca-b14f-95c289aa4770">
+
+#### Types of Instructions
+RISC-V architecture encompasses diverse types of instructions, each designed to operate on different types of data. Among them, Base Integer Instructions are prominent. These instructions facilitate operations on both signed and unsigned integer numbers. Some noteworthy points regarding these instructions are as follows:
+
+There exist around 47 distinct types of Base Integer Instructions in the RISC-V architecture.
+
+Some common categories of Base Integer Instructions are R-type, I-type, and S-type instructions, each having specific functionalities.
+
+R-type Instructions: These instructions exclusively work with registers. For instance: add x8, x24, x8 performs addition using registers.
+
+I-type Instructions: These instructions operate on both registers and immediate values. For example: ld x8, 16(x32) loads data from memory using an immediate offset.
+
+S-type Instructions: These instructions operate on source registers and immediate values and are often used for storing data. For example: sd x8, 8(x23) stores data in memory using an immediate offset.
+
+![MUKIE](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/a82a2136-5452-45a1-8725-c4e138d06de1)
+
+#### Register Accessibility and Representation
+In the RISC-V architecture, the registers accessed by R-type, I-type, or S-type Instructions are limited to 5 bits. Consequently, the total number of representable registers is 2^5 = 32. As a result, there are 32 registers available (from x0 to x31) in the RISC-V architecture. Proper management of these registers through different instruction formats ensures efficient and effective execution of programs.
+
+
 
