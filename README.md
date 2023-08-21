@@ -74,6 +74,10 @@ source ~/.bashrc
   - [From Application Software to Hardware Execution: A Flow Overview](#from-application-software-to-hardware-execution-a-flow-overview)
 - [Labwork for RISC-V software toolchain](#labwork-for-risc-v-software-toolchain)
 - [Data Representation and Storage in RISC-V](#data-representation-and-storage-in-risc-v)
+  - [Unsigned Numbers](#unsigned-numbers)
+  - [Signed Numbers](#signed-numbers)
+  - [Exploring Unsigned Number Representation in RISC-V](exploring-unsigned-number-representation-in-risc-v)
+  - [Exploring Signed Number Representation in RISC-V](exploring-signed-number-representation-in-risc-v)
 
 
 ### RISC-V: A Transformative ISA for Innovation
@@ -405,7 +409,10 @@ Upon running the code with the provided instructions, you will see the output th
   - [Register File](#register-file)
   - [Types of Instructions](#types-of-instructions)
   - [Register Accessibility and Representation](#register-accessibility-and-representation)
-- [Labwork Using ABI Function Calls](#labwork-using-abi-function-calls)
+- [Labwork](labwork)
+  - [Labwork Using ABI Function Calls](#labwork-using-abi-function-calls)
+  - [ASM Flow Chart](#asm-flow-chart)
+  - [Verification Flow Description](#verification-flow-description)
 
 
 ## Base Integer Instruction Set RV64I
@@ -533,9 +540,9 @@ S-type Instructions: These instructions operate on source registers and immediat
 #### Register Accessibility and Representation
 In the RISC-V architecture, the registers accessed by R-type, I-type, or S-type Instructions are limited to 5 bits. Consequently, the total number of representable registers is 2^5 = 32. As a result, there are 32 registers available (from x0 to x31) in the RISC-V architecture. Proper management of these registers through different instruction formats ensures efficient and effective execution of programs.
 
-## Labwork Using ABI Function Calls
+## Labwork
 
-### 
+### Labwork Using ABI Function Calls
 
 Consider the following example involving C and assembly code:
 
