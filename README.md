@@ -662,3 +662,79 @@ Execute the script rv32im.sh which contains the necessary commands to convert C 
 
 # Day 3: Digital Logic with TL-Verilog and Makerchip
 
+- [Logic Gates](#logic-gates)
+- 
+
+## Logic Gates
+
+Logic gates are fundamental components of digital electronic circuits, serving as the building blocks for logical operations. These gates process input signals and generate output signals based on predefined logic rules. By manipulating binary signals, typically represented as "0" and "1," logic gates enable complex digital systems such as processors, memory units, and controllers. They function by performing logical operations and are designed to work with discrete voltage levels representing binary values.
+
+Here are some common types of logic gates:
+
+![Screenshot (62)](https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog/assets/43675821/b199aeef-e660-49da-981d-a8d0aa6aa048)
+
+These gates can be combined to create intricate digital circuits. Notably, NAND and NOR gates are referred to as universal gates because they can be used to construct all other logic gates. The Verilog representation of logic gates is shown below:
+
+![Screenshot (68)](https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog/assets/43675821/f9fd4caf-434e-44e3-a1c7-eee94f816eb4)
+
+Multiplexer Using Ternary Operator
+A multiplexer is a crucial component for selecting one of multiple input signals and forwarding it as the output. In Verilog, a simple 2:1 multiplexer can be realized using the ternary operator as shown below:
+
+```bash
+assign f = s ? x1 : x0;
+```
+Here, the output f follows x1 when s is 1; otherwise, it follows x0. The corresponding hardware and logic gate representation is illustrated:
+
+![Screenshot (70)](https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog/assets/43675821/ec47ff05-e330-4add-8da1-9f7b544677f4)
+
+For more complex scenarios, higher bit multiplexers can be created using the conditional operator. Consider the Verilog code for a 4:1 multiplexer below:
+
+```bash
+assign f = sel[0] ? a : (sel[1] ? b : (sel[2] ? c : d));
+```
+In this code, input a holds the highest priority, and input d holds the lowest. This code doesn't create a single 4:1 multiplexer; instead, it forms a series of interconnected 2:1 multiplexers. Here, the sel signal is a one-hot vector, with only one bit set to high at a time. The hardware realization of this concept is depicted below:
+
+![Screenshot (74)](https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog/assets/43675821/1307f539-2b65-43b8-ae26-cb357e6a8762)
+
+## Transaction Level (TL) Modeling in SystemVerilog
+
+Transaction Level (TL) modeling is a higher abstraction level than traditional hardware modeling. It focuses on functional operations and transactions rather than low-level hardware details. Key concepts include transactions, channels, and interfaces.
+
+### Benefits:
+
+- Abstraction: TL modeling abstracts implementation details, focusing on system behavior.
+- Modularity: Design can be divided into reusable modules, improving organization.
+- Rapid Prototyping: TL modeling speeds up design exploration and development.
+- SystemVerilog for TL Modeling:
+- SystemVerilog, an extension of Verilog, supports TL modeling with features like interfaces, virtual interfaces, and classes. It's suited for
+- modeling transactions and communication protocols.
+
+#### Example:
+
+```systemverilog
+interface Transaction;
+    logic [31:0] address;
+    logic [7:0] data;
+    logic write;
+    logic [1:0] burst;
+
+    task send();
+        // Implementation of sending a transaction
+    endtask
+endinterface
+
+module Memory (Transaction mem_intf);
+    // Implementation of memory module
+endmodule
+
+module Processor (Transaction proc_intf);
+    // Implementation of processor module
+endmodule
+
+// Instantiate Transaction interface
+Transaction mem_transaction, proc_transaction;
+
+// Instantiate Memory and Processor modules
+Memory mem(.mem_intf(mem_transaction));
+Processor proc(.proc_intf(proc_transaction));
+```
