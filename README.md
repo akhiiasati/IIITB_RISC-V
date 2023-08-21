@@ -405,7 +405,9 @@ Upon running the code with the provided instructions, you will see the output th
   - [Register File](#register-file)
   - [Types of Instructions](#types-of-instructions)
   - [Register Accessibility and Representation](#register-accessibility-and-representation)
-- [Labwork of ABI](#labwork-of-abi)
+- [Labwork Using ABI Function Calls](#labwork-using-abi-function-calls)
+
+
 ## Base Integer Instruction Set RV64I
 
 RV64I serves as the base integer instruction set for the 64-bit architecture, building upon the RV32I variant. While RV64I shares most instructions with RV32I, there are differences in register width and additional instructions in RV64I. The base integer instruction set comprises 47 instructions, derived from both RV32I and RV64I (35 from RV32I and 12 from RV64I). Below are the instructions:
@@ -531,7 +533,9 @@ S-type Instructions: These instructions operate on source registers and immediat
 #### Register Accessibility and Representation
 In the RISC-V architecture, the registers accessed by R-type, I-type, or S-type Instructions are limited to 5 bits. Consequently, the total number of representable registers is 2^5 = 32. As a result, there are 32 registers available (from x0 to x31) in the RISC-V architecture. Proper management of these registers through different instruction formats ensures efficient and effective execution of programs.
 
-## Labwork of ABI
+## Labwork Using ABI Function Calls
+
+### 
 
 Consider the following example involving C and assembly code:
 
@@ -592,6 +596,26 @@ spike pk custom1_to9.o
 
 #### Outputs of the Lab
 
+Flow Chart and ABI Illustration
+The flow chart below represents the sequence of operations performed by the assembly code within the load function:
 
+### ASM Flow Chart
+
+This flow chart is crucial in understanding how the assembly code iterates and accumulates the sum of numbers, demonstrating the algorithm's execution visually.
+
+#### ABI Interaction
+
+The provided C code serves as the conduit through which the Application Binary Interface (ABI) principles are demonstrated. The interaction unfolds as follows:
+
+- The C code initializes the count and result variables to appropriate values.
+- It invokes the load function from the assembly code, passing the arguments 0x0 and count + 1.
+- The assembly code executes the load function, performing the summation operation using the provided algorithm.
+- Upon completion, the assembly code returns the computed result via the ABI mechanism to the calling C code.
+- Back in the C code, the returned value is captured and then displayed using the printf function.
+- This interaction elegantly showcases how the ABI enables seamless communication between different parts of the codebase, allowing the C code to utilize the assembly routine for computation and receive the results effectively.
+
+The combined effect of the flow chart and the ABI interaction demonstration provides a comprehensive understanding of how the given C and assembly code work together to achieve their desired functionality.
+
+![Screenshot (54)](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/17aec548-945a-456b-86e4-bd7244845ca7)
 
 
