@@ -668,7 +668,18 @@ Execute the script rv32im.sh which contains the necessary commands to convert C 
   - [TL-Verilog Advantages](#tk-verilog-advantages)
   - [TL-Verilog vs. SystemVerilog: A Comparison](#tl-verilog-vs-systemverilog-a-comparison)
   - [Timing Abstract in TL-Verilog](#timing-abstract-in-tl-verilog)
-
+- [Makerchip IDE](#makerchip-ide)
+  - [Key Features](#key-features)
+  - [Benefits](#benefits)
+  - [Examples: Pythagorean](#examples-pythagorean)
+- [Labs: Combinational Logic on MackerChip IDE](#labs-combinational-logic-on-mackerchip-ide)
+  - [Inverter](#inverter)
+  - [AND Gate](#and-gate)
+  - [OR Gate](#or-gate)
+  - [XOR Gate](#xor-gate)
+  - [Vector Addition](#vector-addition)
+  - [2:1 Multiplexer](#2-1-multiplexer)
+  - [Combinational Calculator using TL-Verilog](#combinational-calculator-using-tl-verilog)
 
 ## Logic Gates
 
@@ -775,7 +786,7 @@ Makerchip IDE is a powerful integrated development environment tailored for digi
 
 ![Screenshot (76)](https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog/assets/43675821/40325c1d-344a-4c77-8322-fa03f3ee8795)
 
-## Combinational Logic
+## Labs: Combinational Logic on MackerChip IDE
 
 ### Inverter
 
