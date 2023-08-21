@@ -683,6 +683,11 @@ Execute the script rv32im.sh which contains the necessary commands to convert C 
   - [Combinational Calculator using TL-Verilog](#combinational-calculator-using-tl-verilog)
 - [Sequential Circuits](#sequential-circuits)
 - [Labs: Sequential Logic on MackerChip IDE](#labs-sequential-logic-on-mackerchip-ide)
+  - [Fibonacci Series](#fibonacci-series)
+  - [Free Running Counter](#free-running-counter)
+  - [Counter-Output with Calculator Integration](#counter-output-with-calculator-integration)
+  - [Sequential Calculator](#sequential-calculator)
+
 ## Logic Gates
 
 Logic gates are fundamental components of digital electronic circuits, serving as the building blocks for logical operations. These gates process input signals and generate output signals based on predefined logic rules. By manipulating binary signals, typically represented as "0" and "1," logic gates enable complex digital systems such as processors, memory units, and controllers. They function by performing logical operations and are designed to work with discrete voltage levels representing binary values.
@@ -787,6 +792,12 @@ Makerchip IDE is a powerful integrated development environment tailored for digi
 ### Examples: Pythagorean
 
 ![Screenshot (76)](https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog/assets/43675821/40325c1d-344a-4c77-8322-fa03f3ee8795)
+
+## Comabinational Circuits
+
+Combinational circuits, essential components of digital electronics, generate outputs solely based on their current inputs without any memory or feedback mechanism. These circuits are built using logic gates and perform logic functions like addition, multiplication, and more. Combinational circuits follow deterministic behavior, lack loops, and are represented through truth tables. They find applications in arithmetic units, data processing, control logic, and data multiplexing, forming the core of digital system design.
+
+![maxresdefault](https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog/assets/43675821/b3127952-808d-4ab7-ab5e-48f9777a56a4)
 
 ## Labs: Combinational Logic on MackerChip IDE
 
@@ -906,3 +917,91 @@ The function table for the Combinational Calculator is provided below:
 
 ![Screenshot 2023-08-21 183813](https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog/assets/43675821/965101d9-cc6c-4103-a88d-faa31ade6ec9)
 ![Screenshot 2023-08-21 183827](https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog/assets/43675821/6a6fedc6-d773-49ef-9964-0ce874676f24)
+
+## Sequential Circuits
+
+Sequential circuits are a fundamental aspect of digital electronics, incorporating memory elements to retain and process information over time. Unlike combinational circuits, sequential circuits have feedback loops, enabling them to store past inputs and exhibit dynamic behavior. These circuits are essential for tasks requiring memory and timing, such as memory units, flip-flops, and state machines. In sequential circuits, outputs depend on both current inputs and the internal state, making them crucial for various applications, including counters, shift registers, and complex control systems.
+
+![hqdefault](https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog/assets/43675821/6b517ee9-2eeb-4412-b946-325ca22902e6)
+
+## Labs: Sequential Logic on MackerChip IDE
+
+### Fibonacci Series
+
+The TL-Verilog code for generating the Fibonacci series is shown below:
+
+```tl
+$reset = *reset;
+$num[31:0] = $reset ? 1 : (>>1$num + >>2$num);
+```
+1 indicates the previous value of $num
+
+2 represents the value of $num before 2 clock cycles
+
+![Screenshot 2023-08-21 191041](https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog/assets/43675821/a19f644a-b33c-439e-87c0-e276f533bb49)
+![Screenshot 2023-08-21 191001](https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog/assets/43675821/0489c160-58d2-4cbc-8eb8-08976fb15a99)
+
+### Free Running Counter
+The TL-Verilog code for a free running counter is shown below:
+
+```tl
+$reset = *reset;
+$cnt[31:0] = $reset ? 0 : (>>1$cnt + 1);
+```
+
+![Screenshot 2023-08-21 191422](https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog/assets/43675821/7cef59c0-b690-4396-886a-f4aa93c66232)
+![Screenshot 2023-08-21 191432](https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog/assets/43675821/8860a730-08d9-4954-9205-12a7106ef69c)
+
+### Counter-Output with Calculator Integration
+
+The TL-Verilog code for a counter-output integrated with a calculator is shown below:
+
+```tl
+reset = *reset;
+
+$cnt1[31:0] = $reset ? 0 : (>>1$cnt1 + 3);
+$cnt2[31:0] = $reset ? 0 : (>>1$cnt2 + 4);
+$cnt3[1:0] = $reset ? 0 : (>>1$cnt3 + 1);
+
+$op[1:0] = $cnt3;
+
+$val1[31:0] = $cnt1;
+$val2[31:0] = $cnt2;
+$sum[31:0] = $val1 + $val2;
+$diff[31:0] = $val1 - $val2;
+$prod[31:0] = $val1 * $val2;
+$div[31:0] = $val1 / $val2;
+
+$out[31:0] = $op[1] ? ($op[0] ? $div : $prod) : ($op[0] ? $diff : $sum);
+```
+
+![Screenshot 2023-08-21 191716](https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog/assets/43675821/39c693fb-cd49-4c3f-a3b9-5c84b9207b6a)
+![Screenshot 2023-08-21 191748](https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog/assets/43675821/078cc9d9-9c22-4fe1-b988-b5eb8b2e0a1d)
+
+### Sequential Calculator
+
+The TL-Verilog code for a sequential calculator is shown below:
+
+```tl
+$reset = *reset;
+
+$cnt2[2:0] = $reset ? 0 : (>>1$cnt2 + 1);
+$cnt3[1:0] = $reset ? 0 : (>>1$cnt3 + 1);
+
+$op[1:0] = $cnt3;
+
+$val1[31:0] = >>1$out;
+$val2[31:0] = $cnt2;
+$sum[31:0] = $val1 + $val2;
+$diff[31:0] = $val1 - $val2;
+$prod[31:0] = $val1 * $val2;
+$div[31:0] = $val1 / $val2;
+
+$out[31:0] = $reset ? 32'h0 : ($op[1] ? ($op[0] ? $div : $prod) : ($op[0] ? $diff : $sum));
+```
+This code emulates a normal calculator where the result of the previous operation serves as one of the operands for the next operation. Upon reset, the result becomes zero.
+
+![Screenshot 2023-08-21 192031](https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog/assets/43675821/c1e4155b-0fbc-4c8f-8eb7-835241b5b19e)
+![Screenshot 2023-08-21 192039](https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog/assets/43675821/b4129363-96ab-4696-8be0-2f90631c9699)
+
+
