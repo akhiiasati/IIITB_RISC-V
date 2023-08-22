@@ -806,11 +806,11 @@ Combinational circuits, essential components of digital electronics, generate ou
 The TL-Verilog code for an inverter is shown below:
 
 ```tl
-$out = $in;
+$out = ! $in;
 ```
 
-![Screenshot (77)](https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog/assets/43675821/3001e778-6097-4f65-85bf-d6232faba243)
-![Screenshot (78)](https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog/assets/43675821/8a565e8a-49cc-47e9-a299-84c963249d4a)
+![Screenshot 2023-08-22 121756](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/02fd3882-1a07-4427-b3d0-1b6300bbe1a5)
+![Screenshot 2023-08-22 121833](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/9c36d88c-7add-4255-98ef-bed417592ef3)
 
 ### AND Gate
 
