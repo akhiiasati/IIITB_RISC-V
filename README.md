@@ -952,31 +952,6 @@ $cnt[31:0] = $reset ? 0 : (>>1$cnt + 1);
 ![Screenshot 2023-08-21 191422](https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog/assets/43675821/7cef59c0-b690-4396-886a-f4aa93c66232)
 ![Screenshot 2023-08-21 191432](https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog/assets/43675821/8860a730-08d9-4954-9205-12a7106ef69c)
 
-### Counter-Output with Calculator Integration
-
-The TL-Verilog code for a counter-output integrated with a calculator is shown below:
-
-```tl
-reset = *reset;
-
-$cnt1[31:0] = $reset ? 0 : (>>1$cnt1 + 3);
-$cnt2[31:0] = $reset ? 0 : (>>1$cnt2 + 4);
-$cnt3[1:0] = $reset ? 0 : (>>1$cnt3 + 1);
-
-$op[1:0] = $cnt3;
-
-$val1[31:0] = $cnt1;
-$val2[31:0] = $cnt2;
-$sum[31:0] = $val1 + $val2;
-$diff[31:0] = $val1 - $val2;
-$prod[31:0] = $val1 * $val2;
-$div[31:0] = $val1 / $val2;
-
-$out[31:0] = $op[1] ? ($op[0] ? $div : $prod) : ($op[0] ? $diff : $sum);
-```
-
-![Screenshot 2023-08-21 191716](https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog/assets/43675821/39c693fb-cd49-4c3f-a3b9-5c84b9207b6a)
-![Screenshot 2023-08-21 191748](https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog/assets/43675821/078cc9d9-9c22-4fe1-b988-b5eb8b2e0a1d)
 
 ### Sequential Calculator
 
