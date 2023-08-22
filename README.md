@@ -2285,3 +2285,394 @@ The TL-Verilog Code is given below:
 ![Screenshot 2023-08-22 232047](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/172ee30a-8f9c-47b8-9450-dacac5d87cfb)
 
 # Day 5: Complete Pipelined RISC-V CPU Micro-architecture
+
+## Hazards in Pipelining: Branch Instruction Hazard
+
+Pipelining is a technique used to improve the performance of processors by dividing the execution of instructions into multiple stages. However, pipelining introduces certain challenges known as hazards, which are situations that can disrupt the smooth execution of instructions. One of the most significant hazards is the "branch instruction hazard," often referred to as the "branch penalty."
+
+1. Structural Hazard:
+   
+A structural hazard arises when there's a resource conflict in the pipeline. For example, a branch instruction might need to access the same execution unit or memory stage that another instruction already in the pipeline is using. This conflict causes a pipeline stall, during which the resources are reallocated or the conflict is resolved. Structural hazards can cause inefficiencies and degrade performance by delaying instruction execution.
+
+3. Data Hazard:
+   
+Data hazards occur when instructions depend on the results of previous instructions, and the required data is not yet available. In the context of branch instructions, data hazards can arise when instructions following a branch instruction depend on the outcome of that branch, but the actual decision of whether the branch is taken or not is not yet determined. This can lead to incorrect results if not properly managed. Data hazards must be resolved through techniques like forwarding or stalling, which ensure that instructions receive the correct data for proper execution.
+
+5. Control Hazard (Branch Hazard):
+   
+Control hazards are the primary concern when dealing with branch instructions in pipelining. They occur due to the uncertainty of whether a branch will be taken or not taken. In a pipelined processor, instructions are fetched ahead of time to maintain pipeline throughput, but the actual outcome of a branch might not be known until it reaches the execution stage. If the branch decision differs from the prediction made during the fetch stage, instructions fetched after the branch can be incorrect.
+
+To handle control hazards, modern processors use branch prediction techniques to make educated guesses about whether a branch will be taken or not. If the prediction is correct, the pipeline proceeds without issues. However, if the prediction is incorrect, a process called "pipeline flushing" is required. Pipeline flushing involves discarding all instructions fetched after the mispredicted branch, effectively resetting the pipeline to the correct instruction sequence. This flushing process incurs a performance penalty, known as the "branch penalty," as it causes wasted work and pipeline stalls.
+
+Overall, branch instructions introduce hazards in pipelining due to the need to make decisions about instruction sequencing, resource allocation, and data dependencies. Managing these hazards effectively through techniques like branch prediction and pipeline flushing is crucial for maintaining pipeline efficiency and improving processor performance.
+
+## Waterfall Logic Diagram for Control Flow Hazard:
+
+In a waterfall logic diagram for a control flow hazard, you would represent each stage of the pipeline vertically, from left to right. The diagram would show the progression of instructions through the pipeline stages. When a control flow hazard occurs, you would see a "bubble" or "stall" in the pipeline stages after the branch instruction.
+
+Here's a simplified example of a waterfall logic diagram showing a control flow hazard:
+
+```sql
+   IF    ID    EX    MEM   WB
+   ----------------------------
+1: ADD   SUB   MUL   ADD   SUB
+2:       BEQ   ADD   SUB   MUL   // Control flow hazard
+3:             SUB   MUL   ADD
+4:                   BEQ   ADD
+5:                         SUB
+```
+
+In the above diagram:
+
+- Instructions 1 and 2 are progressing normally through the pipeline.
+- At stage 2, there's a branch instruction (BEQ) that depends on the result of the previous instruction (SUB in stage 1).
+- In stage 3, the branch condition is evaluated and the pipeline realizes there's a branch. However, it's too late to prevent the MUL instruction in stage 2 from entering the pipeline.
+- As a result, there's a bubble in stage 3 where no useful work is being done, allowing the pipeline to resolve the branch and fetch the correct instruction (SUB) after the branch.
+  
+![Screenshot 2023-08-23 005844](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/50b144f3-12b5-427d-b480-8aff6187ae58)
+
+### Valid signal for Pipelined Logic
+
+The TL-Verilog code to introduce valid signal for pipelined logic is given below :
+
+```tlv
+	      $start = >>1$reset && !$reset;
+         $valid = $reset ? 1'b0 : ($start || >>3$valid);
+         $valid_or_reset = $valid || $reset;
+         $rs1_or_funct3_valid    = $is_r_instr || $is_i_instr || $is_s_instr || $is_b_instr;
+         $rs2_valid              = $is_r_instr || $is_s_instr || $is_b_instr;
+         $rd_valid               = $is_r_instr || $is_i_instr || $is_u_instr || $is_j_instr;
+         $funct7_valid           = $is_r_instr;  
+```
+
+In this code:
+
+- $start is a signal that indicates the beginning of pipeline execution. It is set to 1 when there's a rising edge of $reset (indicating a reset cycle) and when the reset signal deactivates (!$reset).
+- $valid is a signal that determines whether the current instruction is valid for execution. During a reset cycle ($reset), $valid is set to 1'b0.
+- Otherwise, it is set to 1 if either $start is active or the $valid signal from three cycles ago (>>3$valid) is active. This accounts for the pipeline stages and ensures that instructions progress through the pipeline properly.
+- $valid_or_reset combines the $valid signal and the $reset signal using a logical OR operation. It helps in determining whether the current instruction is valid for execution, even during a reset.
+- The validity signals like $rs1_or_funct3_valid, $rs2_valid, $rd_valid, and $funct7_valid are used to handle various instruction types within the pipeline. For example, $rs1_or_funct3_valid is active for instructions that either require $rs1 or involve $funct3, which includes R, I, S, and B-type instructions. Similarly, $rs2_valid is active for R, S, and B-type instructions, indicating that they require a valid $rs2 operand.
+
+Handling Data Hazards in Register File with Bypassing
+
+```tlv
+//Register file bypass logic - data forwarding from ALU to resolve RAW dependence
+         $src1_value[31:0] = $rs1_bypass ? >>1$result[31:0] : $rf_rd_data1[31:0];
+         $src2_value[31:0] = $rs2_bypass ? >>1$result[31:0] : $rf_rd_data2[31:0];
+```
+In this code:
+
+- The $rs1_bypass and $rs2_bypass signals indicate whether bypassing is needed to resolve a Read-After-Write (RAW) data hazard. A RAW hazard occurs when an instruction depends on the result of a previous instruction that hasn't completed yet. Bypassing allows forwarding the result from the execution stage directly to the current instruction to avoid stalls due to dependencies.
+- $src1_value[31:0] is assigned based on whether $rs1_bypass is active. If bypassing is needed ($rs1_bypass is true), the value of the ALU result from the previous cycle (>>1$result[31:0]) is used. Otherwise, the regular register file read data ($rf_rd_data1[31:0]) is used as the source value for the current instruction's $src1_value.
+- $src2_value[31:0] is assigned similarly to $src1_value[31:0], but it depends on the need for $rs2_bypass. If bypassing is needed ($rs2_bypass is true), the ALU result from the previous cycle (>>1$result[31:0]) is used. Otherwise, the regular register file read data ($rf_rd_data2[31:0]) is used as the source value for the current instruction's $src2_value.
+
+### Correcting branch target path
+
+```tlv
+// Correcting branch target path
+
+// Current instruction is valid if one of the previous 2 instructions were not (taken_branch or load or jump)
+$valid = ~(>>1$valid_taken_br || >>2$valid_taken_br || >>1$is_load || >>2$is_load || >>2$jump_valid || >>1$jump_valid);
+
+// Current instruction is valid & is a taken branch
+$valid_taken_br = $valid && $taken_br;
+
+// Current instruction is valid & is a load
+$valid_load = $valid && $is_load;
+
+// Current instruction is valid & is jump
+$jump_valid = $valid && $is_jump;
+$jal_valid  = $valid && $is_jal;
+$jalr_valid = $valid && $is_jalr;
+
+*passed = |cpu/xreg[17]>>5$value == (1+2+3+4+5+6+7+8+9);
+```
+
+In this code:
+
+The $valid signal determines whether the current instruction is valid for execution based on certain conditions. Specifically, the instruction is considered valid if any of the following conditions are met:
+
+- The previous instruction was not a taken branch ($valid_taken_br from one or two cycles ago).
+- The previous instruction was not a load ($is_load from one or two cycles ago).
+- The instruction before the previous one was a load ($is_load from two cycles ago).
+- The instruction before the previous one was a jump ($is_jump from two cycles ago).
+- The previous instruction was a jump ($is_jump from one cycle ago).
+- This logic helps prevent incorrect instructions from being executed when there's a taken branch, load instruction, or jump instruction in the pipeline.
+- The $valid_taken_br signal indicates whether the current instruction is valid and represents a taken branch instruction.
+- The $valid_load signal indicates whether the current instruction is valid and represents a load instruction.
+- The $jump_valid, $jal_valid, and $jalr_valid signals indicate whether the current instruction is valid and represents jump, jal (jump and link), and jalr (jump and link register) instructions, respectively.
+- The *passed statement is used to determine whether the program execution is successful. It checks if the value in register xreg[17] right-shifted by 5 bits (>>5) equals the sum of the numbers 1 through 9 (1+2+3+4+5+6+7+8+9). If this condition is met, the simulation is considered successful.
+
+### Final 4 Stage Pipelined Logic:
+
+```tlv
+\m4_TLV_version 1d: tl-x.org
+\SV
+   // This code can be found in: https://github.com/stevehoover/RISC-V_MYTH_Workshop
+   
+   m4_include_lib(['https://raw.githubusercontent.com/BalaDhinesh/RISC-V_MYTH_Workshop/master/tlv_lib/risc-v_shell_lib.tlv'])
+
+\SV
+   m4_makerchip_module   // (Expanded in Nav-TLV pane.)
+\TLV
+     
+   // /====================\
+   // | Sum 1 to 9 Program |
+   // \====================/
+   //
+   // Program for MYTH Workshop to test RV32I
+   // Add 1,2,3,...,9 (in that order).
+   //
+   // Regs:
+   //  r10 (a0): In: 0, Out: final sum
+   //  r12 (a2): 10
+   //  r13 (a3): 1..10
+   //  r14 (a4): Sum
+   // 
+   // External to function:
+   m4_asm(ADD, r10, r0, r0)             // Initialize r10 (a0) to 0.
+   // Function:
+   m4_asm(ADD, r14, r10, r0)            // Initialize sum register a4 with 0x0
+   m4_asm(ADDI, r12, r10, 1010)         // Store count of 10 in register a2.
+   m4_asm(ADD, r13, r10, r0)            // Initialize intermediate sum register a3 with 0
+   // Loop:
+   m4_asm(ADD, r14, r13, r14)           // Incremental addition
+   m4_asm(ADDI, r13, r13, 1)            // Increment intermediate register by 1
+   m4_asm(BLT, r13, r12, 1111111111000) // If a3 is less than a2, branch to label named <loop>
+   m4_asm(ADD, r10, r14, r0)            // Store final result to register a0 so that it can be read by main program
+   m4_asm(SW, r0, r10, 100)
+   m4_asm(LW, r15, r0, 100)
+   // Optional:
+   // m4_asm(JAL, r7, 00000000000000000000) // Done. Jump to itself (infinite loop). (Up to 20-bit signed immediate plus implicit 0 bit (unlike JALR) provides byte address; last immediate bit should also be 0)
+   m4_define_hier(['M4_IMEM'], M4_NUM_INSTRS)
+
+   |cpu
+      @0
+         $reset = *reset;
+              //Fetch1   
+         $pc[31:0] = >>1$reset ? 32'b0 :
+                     >>3$valid_taken_br ? >>3$br_tgt_pc :
+                     >>3$valid_load ? >>3$inc_pc : 
+                     (>>3$valid_jump && >>3$is_jal) ? >>3$br_tgt_pc :
+                     (>>3$valid_jump && >>3$is_jalr) ? >>3$jalr_tgt_pc :
+                     >>1$inc_pc;
+                     
+                    
+      @1
+         $inc_pc[31:0] = $pc + 32'd4 ;
+         $imem_rd_en = !>>1$reset;    
+         $imem_rd_addr[M4_IMEM_INDEX_CNT-1:0] = $pc[M4_IMEM_INDEX_CNT+1:2]; 
+      @3
+                
+         $valid = !(>>1$valid_taken_br || >>2$valid_taken_br || >>1$valid_load || >>2$valid_load 
+                    || >>1$valid_jump || >>2$valid_jump) ;
+                    
+         $valid_load = $valid && $is_load ;
+         $valid_jump = $valid && $is_load;
+                       
+                       
+                 
+            //$valid_load = $valid && $is_load ;
+                
+            //Fetch2 
+      @1
+         $instr[31:0] = $imem_rd_data[31:0]; 
+               
+          //Instructions type decode 
+         $is_i_instr = $instr[6:2] ==? 5'b0000x || 
+                       $instr[6:2] ==? 5'b001x0 || 
+                       $instr[6:2] ==? 5'b11001 ;
+         $is_r_instr = $instr[6:2] ==? 5'b011x0 || 
+                       $instr[6:2] ==? 5'b01011 || 
+                       $instr[6:2] ==? 5'b10100 ; 
+         $is_s_instr = $instr[6:2] ==? 5'b0100x ;
+         $is_b_instr = $instr[6:2] ==? 5'b11000 ;
+         $is_j_instr = $instr[6:2] ==? 5'b11011 ;
+         $is_u_instr = $instr[6:2] ==? 5'b0x101 ;
+         
+           //Instruction immediate decode
+         $imm[31:0] = $is_i_instr ? {{21{$instr[31]}},$instr[30:20] }:
+                      $is_s_instr ? {{21{$instr[31]}},$instr[30:25],$instr[11:8],$instr[7]} :
+                      $is_b_instr ? {{20{$instr[31]}},$instr[7],$instr[30:25],$instr[11:8],1'b0} :
+                      $is_u_instr ? {$instr[31], $instr[30:20],$instr[19:12],12'b0 }:
+                      $is_j_instr ? {{12{$instr[31]}},$instr[19:12],$instr[20],$instr[30:21],1'b0} :
+                      32'b0 ;
+         $opcode[6:0] = $instr[6:0];
+
+           //b. func7 decode
+
+         $func7_valid = $is_r_instr ;
+         ?$func7_valid
+            $func7[6:0] = $instr[31:25];
+         //c. rs2 decode
+
+         $rs2_valid = $is_r_instr || $is_s_instr || $is_b_instr ;
+         ?$rs2_valid
+            $rs2[4:0] = $instr[24:20];
+
+          //d. rs1 valid
+
+         $rs1_valid = $is_r_instr || $is_i_instr || $is_s_instr || $is_b_instr ;
+         ?$rs1_valid
+            $rs1[4:0] = $instr[19:15] ;
+
+          //e. func3 valid
+
+         $func3_valid = $is_r_instr || $is_i_instr || $is_s_instr || $is_b_instr ;
+         ?$func3_valid
+            $func3[2:0] = $instr[14:12] ;
+
+         $rd_valid = $is_r_instr || $is_i_instr || $is_u_instr || $is_j_instr ;
+         ?$rd_valid
+            $rd[4:0] = $instr[11:7];     
+      
+         $dec_bits[10:0] = {$func7[5], $func3, $opcode} ;
+         $is_beq = $dec_bits ==? 11'bx_000_1100011 ;
+         $is_bne = $dec_bits ==? 11'bx_001_1100011 ;
+         $is_blt = $dec_bits ==? 11'bx_100_1100011 ;
+         $is_bge = $dec_bits ==? 11'bx_101_1100011 ;           
+         $is_bltu = $dec_bits ==? 11'bx_110_1100011 ;
+         $is_bgeu = $dec_bits ==? 11'bx_111_1100011 ;  
+         $is_addi = $dec_bits ==? 11'bx_000_0010011 ;
+         $is_add = $dec_bits ==? 11'b0_000_0110011 ;
+         
+         $is_load = $dec_bits ==? 11'bx_xxx_0000011;
+         
+         $is_sb = $dec_bits ==? 11'bx_000_0100011;
+         $is_sh = $dec_bits ==? 11'bx_001_0100011;
+         $is_sw = $dec_bits ==? 11'bx_010_0100011;
+         $is_slti = $dec_bits ==? 11'bx_010_0010011;
+         $is_sltiu = $dec_bits ==? 11'bx_011_0010011;
+         $is_xori = $dec_bits ==? 11'bx_100_0010011;
+         $is_ori = $dec_bits ==? 11'bx_110_0010011;
+         $is_andi = $dec_bits ==? 11'bx_111_0010011;
+         $is_slli = $dec_bits ==? 11'b0_001_0010011;
+         $is_srli = $dec_bits ==? 11'b0_101_0010011;
+         $is_srai = $dec_bits ==? 11'b1_101_0010011;
+         $is_sub = $dec_bits ==? 11'b1_000_0110011;
+         $is_sll = $dec_bits ==? 11'b0_001_0110011;
+         $is_slt = $dec_bits ==? 11'b0_010_0110011;
+         $is_sltu = $dec_bits ==? 11'b0_011_0110011;
+         $is_xor = $dec_bits ==? 11'b0_100_0110011;
+         $is_srl = $dec_bits ==? 11'b0_101_0110011;
+         $is_sra = $dec_bits ==? 11'b1_101_0110011;
+         $is_or = $dec_bits ==? 11'b0_110_0110011;
+         $is_and = $dec_bits ==? 11'b0_111_0110011;
+         $is_lui = $dec_bits ==? 11'bx_xxx_0110111;
+         $is_auipc = $dec_bits ==? 11'bx_xxx_0010111;
+         $is_jal = $dec_bits ==? 11'bx_xxx_1101111;
+         $is_jalr = $dec_bits ==? 11'bx_000_1100111;
+         $is_jump = $is_jal || $is_jalr ;
+         
+         `BOGUS_USE($is_beq $is_bne $is_blt $is_bge $is_bltu $is_bgeu $is_addi $is_add) 
+      @2
+         
+            //Register file read
+         $rf_rd_en1 = $rs1_valid && >>2$result ;
+         $rf_rd_index1[4:0] = $rs1 ;
+         $rf_rd_en2 = $rs2_valid && >>2$result;
+         $rf_rd_index2[4:0] = $rs2 ;
+
+      //Branch_instruction2
+         $br_tgt_pc[31:0] = $pc + $imm ;
+
+     //source to alu assigned with o/p of read register
+         $src1_value[31:0] = 
+              (>>1$rf_wr_index == $rf_rd_index1) && >>1$rf_wr_en ?
+                 >>1$result :
+                  $rf_rd_data1;
+         $src2_value[31:0] = 
+              (>>1$rf_wr_index == $rf_rd_index2) && >>1$rf_wr_en ?
+                 >>1$result :
+                   $rf_rd_data2;
+                   
+      //dmem:1-R/W memory             
+      @4
+         $dmem_wr_en = $is_s_instr && $valid ;
+         $dmem_addr[3:0] = $result[5:2] ;
+         $dmem_wr_data[31:0] = $src2_value ;
+         $dmem_rd_en = $is_load ;
+        
+      @4
+         //LOAD DATA
+         $ld_data[31:0] = $dmem_rd_data ;
+      @3
+         $jalr_tgt_pc[31:0] = $src1_value + $imm ;
+      
+      @3
+     //Assigning aadi and add value to alu
+         $sltu_rslt[31:0] = $src1_value < $src2_value ;
+         $sltiu_rslt[31:0]  = $src1_value < $imm ;
+         
+         $result[31:0] =
+              $is_addi ? $src1_value + $imm :
+              $is_add ? $src1_value + $src2_value :
+              $is_andi ? $src1_value & $imm :
+              $is_ori  ? $src1_value | $imm :
+              $is_xori ? $src1_value ^ $imm :
+              $is_slli ? $src1_value << $imm[5:0] :
+              $is_srli ? $src1_value >> $imm[5:0] :
+              $is_and ? $src1_value & $src2_value :
+              $is_or ? $src1_value | $src2_value :
+              $is_xor ? $src1_value ^ $src2_value :
+              $is_sub ? $src1_value - $src2_value :
+              $is_sll ? $src1_value << $src2_value[4:0] :
+              $is_srl ? $src1_value >> $src2_value[4:0] :
+              $is_sltu ? $src1_value < $src2_value :
+              $is_sltiu ? $src1_value < $imm :
+              $is_lui ? {$imm[31:12], 12'b0} :
+              $is_auipc ? $pc + $imm : 
+              $is_jal ? $pc + 32'd4 :
+              $is_jalr ? $pc + 32'd4 :
+              $is_srai ? {{32{$src1_value[31]}}, $src1_value} >> $imm[4:0] :
+              $is_slt ? ($src1_value[31] == $src2_value[31]) ? $sltu_rslt : {31'b0, $src1_value[31]} :
+              $is_slti ? ($src1_value[31] == $imm[31]) ? $sltiu_rslt : {31'b0, $src1_value[31]} :
+              $is_sra ? {{32{$src1_value[31]}}, $src1_value} >> $src2_value[4:0] :
+              $is_load || $is_s_instr ? $src1_value + $imm :
+              32'bx ;
+        //Register file write
+         $rf_wr_en = $rd_valid && $rd != 5'b0 && $valid || >>2$valid_load ;
+         $rf_wr_index[4:0] = >>2$valid_load ? >>2$rd : $rd ;
+         $rf_wr_data[31:0] = >>2$valid_load ? >>2$ld_data : $result ;
+
+        //Branch insturctions
+         $taken_br = $is_beq ? ($src1_value == $src2_value):
+                     $is_bne ? ($src1_value != $src2_value):
+                     $is_blt ? (($src1_value < $src2_value) ^ ($src1_value[31] != $src2_value[31])):
+                     $is_bge ? (($src1_value >= $src2_value) ^ ($src1_value[31]!= $src2_value[31])):
+                     $is_bltu ? ($src1_value > $src2_value) :
+                     $is_bgeu ? ($src1_value >= $src2_value) :
+                     1'b0 ;
+           //for invalid instruction
+         $valid_taken_br = $valid && $taken_br ;
+         
+         // Note: Because of the magic we are using for visualisation, if visualisation is enabled below,
+         //       be sure to avoid having unassigned signals (which you might be using for random inputs)
+         //       other than those specifically expected in the labs. You'll get strange errors for these.
+         // Assert these to end simulation (before Makerchip cycle limit).
+          //*passed = *cyc_cnt > 40;
+   *passed = |cpu/xreg[15]>>5$value == (1+2+3+4+5+6+7+8+9);
+   *failed = 1'b0;
+   
+   // Macro instantiations for:
+   //  o instruction memory
+   //  o register file
+   //  o data memory
+   //  o CPU visualization
+   |cpu
+      m4+imem(@1)    // Args: (read stage)
+      m4+rf(@2, @3)  // Args: (read stage, write stage) - if equal, no register bypass is required
+      m4+dmem(@4)    // Args: (read/write stage)
+   
+   m4+cpu_viz(@4)    // For visualisation, argument should be at least equal to the last stage of CPU logic. @4 would work for all labs.
+\SV
+   endmodule
+```
+
+![Screenshot 2023-08-23 011239](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/f0a69950-4e2e-42be-bba6-372810a448e1)
+![Screenshot 2023-08-23 011307](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/70714d05-f5fa-4b16-b159-bcdcb3c6745c)
+![Screenshot 2023-08-23 011327](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/42ef9294-e74e-4fc8-aec6-638358042212)
+
+# Refrences:
+- https://www.vsdiat.com
+- https://makerchip.com
