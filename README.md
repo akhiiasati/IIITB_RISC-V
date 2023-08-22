@@ -1114,3 +1114,137 @@ The code provided here illustrates a 2-cycle calculator implemented using pipeli
 ```
 
 ![Screenshot 2023-08-22 215009](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/c97f9831-cd9e-4591-bf6b-7f10e7764dab)
+
+## Validity
+
+### Brief Introduction:
+
+In Transaction-Level Verilog (TL-Verilog), validity is a crucial concept used to manage the state and timing of transactions within a design description. Transactions represent higher-level actions or events that take place within a design. A transaction encompasses a collection of signals that encode both data and control information related to a specific action. Validity refers to whether a transaction is considered "valid" or "invalid," and this status is determined based on the state of the associated signals.
+
+In TL-Verilog, validity is an essential mechanism for tracking the progression of transactions through various stages of a design. Transactions are often used to model operations that span multiple clock cycles or involve multiple components working together. The concept of validity helps to synchronize the flow of data and control information between different parts of the design, ensuring that actions are executed in the correct sequence and that data dependencies are properly managed.
+
+The validity of a transaction is controlled by specific signals that indicate whether the data and control information within that transaction are meaningful and should be considered for processing. For example, a "valid" signal might be asserted to indicate that the data within a transaction is legitimate and ready for processing. Conversely, an "invalid" signal might indicate that the transaction is not yet ready or that the data is not valid.
+
+Using validity signals, designers can create robust and well-coordinated designs that accurately reflect the intended behavior of the system being modeled.
+
+![Screenshot 2023-08-22 215449](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/da57c667-ef68-4a1b-a272-80122d6a0a3c)
+
+### Clock Gating:
+
+Clock gating is a power-saving technique employed in digital circuit design to reduce power consumption by managing the distribution of the clock signal to specific circuit blocks. The primary objective of clock gating is to minimize unnecessary clock transitions in portions of a circuit that are not actively performing computations or tasks. By doing so, clock gating helps to conserve energy in digital systems.
+
+In a digital circuit, the clock signal is fundamental for synchronizing the activities of various components. However, not all components within a system need to be active and consuming power during every clock cycle. Many components spend a considerable amount of time in low-power or idle states. Clock gating capitalizes on this characteristic by selectively enabling or disabling the clock signal to specific parts of the circuit based on their activity status.
+
+The fundamental idea behind clock gating involves inserting a logic gate, often an AND gate, in the path of the clock signal. This gate is controlled by a signal referred to as the "clock enable" signal or "gating signal." When the gating signal is active (high), the gate allows the clock signal to pass through to the associated circuitry. Conversely, when the gating signal is inactive (low), the gate blocks the clock signal, preventing unnecessary clock transitions.
+
+By using clock gating, designers can significantly reduce power consumption in digital systems, especially in scenarios where certain components or blocks of the circuit spend a considerable amount of time in idle states. This technique is a crucial aspect of modern digital design, where power efficiency is a key consideration in many applications.
+
+![Screenshot 2023-08-22 215500](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/c2bdbf98-c947-4624-813f-c4e8bfa2a867)
+
+### Illustration of Validity
+
+Here are some examples of how validity is utilized in different designs using Transaction-Level Verilog (TL-Verilog):
+
+1. Distance Accumulator
+
+Block Diagram:
+
+![Screenshot 2023-08-22 220809](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/a6679433-7168-44f5-ae01-e0dc5939f67b)
+![Screenshot 2023-08-22 220827](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/7b9c324b-be49-467f-891a-c5e53ea04851)
+
+#### TL-Verilog Code:
+
+```tlv
+    calc
+      @1
+         $reset = *reset;
+      ?$valid
+         @1
+            $aa_sq[31:0] = $aa[3:0] * $aa;
+            $bb_sq[31:0] = $bb[3:0] * $bb;
+         @2
+            $cc_sq[31:0] = $aa_sq + $bb_sq;
+         @3
+            $out[31:0] = sqrt($cc_sq);
+      @4
+         $tot_dist[31:0] = $reset ? '0 : ($valid ? (>>1$tot_dist + $out) : $RETAIN);
+```
+
+In this example, the distance accumulator accumulates the results of calculations of square roots. The $valid signal indicates whether the data within the transaction is valid. When $valid is asserted, the calculated result ($out) is added to the total distance accumulator ($tot_dist). If $valid is not asserted, the previous value of $tot_dist is retained.
+
+![dist_acu](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/03184750-d420-40e4-89e6-2bf966c89a68)
+
+2. 2 Cycle Calculator with Validity
+
+Block Diagram:
+
+![2_cyc_val](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/23aaf8c2-278b-4fe3-b6b9-0a60f35e9c68)
+
+#### TL-Verilog Code:
+
+```tlv
+$reset = *reset;
+|calc
+  @1
+     $valid = $reset ? 0 : >>1$valid+1;
+     $valid_or_reset = $valid || $reset;
+  ?$valid_or_reset
+     @1
+        $val1[31:0] = >>2$out;
+        $sum[31:0] = $val1+$val2;
+        $diff[31:0] = $val1-$val2;
+        $prod[31:0] = $val1*$val2;
+        $div[31:0] = $val1/$val2;
+        $valid = $reset ? 0 : (>>1$valid + 1);
+     @2
+        $out[31:0] = $reset  ? 32'h0 : ($op[1] ? ($op[0] ? $div : $prod):($op[0] ? $diff : $sum));
+```
+
+In this example, a 2-cycle calculator is designed with validity tracking. The $valid signal is incremented as each new transaction arrives. The $valid_or_reset signal is used to determine whether the current operation is valid or if a reset condition is active. Depending on this, the calculator processes the input values and generates the output result.
+
+![2_cyc_v](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/65cec4cd-b79c-41e7-b2ec-15649f9daf88)
+
+3. Calculator with Single Value Memory
+
+Block Diagram:
+
+![calc_mem](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/928044c5-46f5-4e93-b06a-ba583d6aa3e1)
+
+#### TL-Verilog Code:
+
+```tlv
+|calc
+  @0
+     $reset = *reset;
+
+  @1
+     $val1 [31:0] = >>2$out;
+     $val2 [31:0] = $rand2[3:0];
+
+     $valid = $reset ? 1'b0 : >>1$valid + 1'b1 ;
+     $valid_or_reset = $valid || $reset;
+
+  ?$valid_or_reset
+     @1   
+        $sum [31:0] = $val1 + $val2;
+        $diff[31:0] = $val1 - $val2;
+        $prod[31:0] = $val1 * $val2;
+        $div[31:0] = $val1 / $val2;
+
+     @2   
+        $mem[31:0] = $reset ? 32'b0 :
+                     ($op[2:0] == 3'b101) ? $val1 : >>2$mem ;
+
+        $out [31:0] = $reset ? 32'b0 :
+                      ($op[2:0] == 3'b000) ? $sum :
+                      ($op[2:0] == 3'b001) ? $diff :
+                      ($op[2:0] == 3'b010) ? $prod :
+                      ($op[2:0] == 3'b011) ? $quot :
+                      ($op[2:0] == 3'b100) ? >>2$mem : >>2$out ;
+```
+
+In this example, a calculator with a single-value memory is demonstrated. Validity is tracked using the $valid signal. Depending on the validity status, various arithmetic operations are performed, and the results are stored in memory. The validity status is also used to decide whether to retrieve values from memory or calculate them based on the specified operation.
+
+![calc_mem_o](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/ed19c652-2f2b-496e-97f9-23b5a7e401d4)
+
+These examples showcase how validity is utilized to control the flow of transactions and ensure accurate processing of data within a TL-Verilog design.
