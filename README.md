@@ -694,7 +694,7 @@ Execute the script rv32im.sh which contains the necessary commands to convert C 
     - [Pipelined Pythagorean](#pipelined-pythagorean)
     - [Error Detection Demo](#error-detection-demo)
     - [Counter and Calculator in Pipeline](#counter-and-calculator-in-pipeline)
-    - [2 Cycle Calculator](#2 cycle-calculator)
+    - [2 Cycle Calculator](#2-cycle-calculator)
 - [Validity](#validity)
   - [Brief Introduction](#brief-introduction)
   - [Clock Gating](#clock-gating)
