@@ -700,7 +700,7 @@ Execute the script rv32im.sh which contains the necessary commands to convert C 
   - [Clock Gating](#clock-gating)
   - [Illustration of Validity](#illustration-of-validity)
   - [Distance Accumulator](#distance-accumulator)
-  - [2 Cycle Calculator with Validity](#2-cycle-calculator-with-validity)
+  - [Two Cycle Calculator with Validity](#two-cycle-calculator-with-validity)
   - [Calculator with Single Value Memory](#calculator-with-single-value-memory)
 
 ## Logic Gates
@@ -1189,7 +1189,7 @@ In this example, the distance accumulator accumulates the results of calculation
 
 ![dist_acu](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/03184750-d420-40e4-89e6-2bf966c89a68)
 
-#### 2 Cycle Calculator with Validity
+#### Two Cycle Calculator with Validity
 
 Block Diagram:
 
