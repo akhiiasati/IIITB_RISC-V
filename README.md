@@ -979,3 +979,138 @@ This code emulates a normal calculator where the result of the previous operatio
 ![Screenshot 2023-08-21 192031](https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog/assets/43675821/c1e4155b-0fbc-4c8f-8eb7-835241b5b19e)
 ![Screenshot 2023-08-21 192039](https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog/assets/43675821/b4129363-96ab-4696-8be0-2f90631c9699)
 
+## Pipelining
+
+Pipelining is a fundamental technique in computer architecture and digital system design aimed at improving the efficiency of processing complex tasks. It accomplishes this by dividing a large task into smaller, sequential stages and executing these stages concurrently. Each stage performs a specific operation on the data, and these stages are organized in a pipeline, where each stage hands off its results to the next stage without waiting for the entire task to complete. This allows multiple instructions or tasks to be in different stages of execution simultaneously, effectively increasing the throughput of the system.
+
+In a pipelined architecture, the execution of an instruction is divided into several stages, such as instruction fetch, decode, execute, memory access, and write-back. Each instruction moves from one stage to the next on every clock cycle, allowing multiple instructions to overlap in execution. This minimizes idle time in the processor and reduces the overall time required to complete a sequence of tasks.
+
+![Screenshot (79)](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/54c81eee-6820-417d-9779-06dbdffb3d05)
+![Screenshot (80)](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/add68f4d-7fbf-48e2-8385-ca1980228561)
+
+### Identifiers and Types in TL-Verilog
+
+Transaction-Level Verilog (TL-Verilog) follows specific rules for naming identifiers, which play a significant role in the design and description of digital systems.
+
+![Screenshot 2023-08-22 214432](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/691d2e89-037e-4d7d-a565-c577be2e7f7e)
+
+- $lower_case: This naming convention is used for pipe signals. Pipe signals represent data that flows through different pipeline stages. They are typically used to connect the output of one stage to the input of the next stage.
+
+- $CamelCase: State signals are represented using this convention. State signals define the state or status of a component in the system. They are often used to control the behavior and transitions of the digital design.
+
+- $Upper_CASE: Keyword signals use uppercase naming. Keyword signals are reserved for specific purposes within the design and are often used for control or synchronization purposes.
+ 
+
+Identifiers can include numbers at the end of tokens, such as $base64_value, as long as they adhere to the naming conventions specified above.
+
+### Basic Pipelined Circuits
+
+#### Pipelined Pythagorean:
+
+The provided TL-Verilog code demonstrates the concept of pipelining through the example of calculating the square root of the sum of squares of two numbers, often known as the Pythagorean theorem. The code defines a pipeline with several stages denoted by |calc @n, where n represents the stage number. Each stage performs a specific operation in the calculation of the Pythagorean theorem. The input values are squared, their squares are summed, and the square root of the sum is calculated.
+
+```tlv
+\m5_TLV_version 1d: tl-x.org
+\m5
+   
+   // =================================================
+   // Welcome!  New to Makerchip? Try the "Learn" menu.
+   // =================================================
+   
+   //use(m5-1.0)   /// uncomment to use M5 macro library.
+\SV
+   // Macro providing required top-level module definition, random
+   // stimulus support, and Verilator config.
+   m5_makerchip_module   // (Expanded in Nav-TLV pane.)
+   
+   `include "sqrt32.v"
+\TLV
+   $reset = *reset;
+   $aa = $rand1[3:0];
+   $bb = $rand2[3:0];
+   |calc
+      @1
+         $aa_sq[31:0] = $aa * $aa;
+      @2
+         $bb_sq[31:0] = $bb * $bb;
+      @3
+         $cc_sq[31:0] = $aa_sq + $bb_sq;
+      @4
+         $out[31:0] = sqrt($cc_sq);
+   
+   // Assert these to end simulation (before Makerchip cycle limit).
+   *passed = *cyc_cnt > 40;
+   *failed = 1'b0;
+\SV
+   endmodule
+```
+
+![Screenshot 2023-08-22 214113](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/3e32f740-2a50-4bf4-a5ab-74f8b8d4a44e)
+
+#### Error Detection Demo:
+
+This section introduces a TL-Verilog code segment that showcases error detection. The code demonstrates the use of pipe signals to track error conditions at different stages. Error signals, such as $bad_input, $illegal_op, and $overflow, are combined to detect errors and propagate them through the pipeline stages using |comp @n notation.
+
+```tlv
+|comp
+      @1
+         $err1 = $bad_input || $illegeal_op;
+      @3
+         $err2 = $err1 || $over_flow;
+      @6
+         $err3 = $err2 || $div_by_zer0;
+```
+
+![Screenshot 2023-08-22 214256](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/549a0680-9490-40f2-be57-b3e2fae03f0d)
+
+#### Counter and Calculator in Pipeline:
+
+This section presents a pipeline design that combines a counter and a calculator. The code defines a pipeline where the counter and calculator operations are executed concurrently. The pipeline stages are marked with |calc @n, and the operations include addition, subtraction, multiplication, and division. The pipeline also features a counter that increments on each clock cycle and is utilized to keep track of the number of operations executed.
+
+![Screenshot 2023-08-22 214610](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/c4f1044a-bf58-4457-87ee-616a2b7ff891)
+
+
+```tlv
+   $reset = *reset;
+   $op[1:0] = $random[1:0];
+   $val2[31:0] = $rand2[3:0];
+   
+   |calc
+      @1
+         $val1[31:0] = >>1$out;
+         $sum[31:0] = $val1+$val2;
+         $diff[31:0] = $val1-$val2;
+         $prod[31:0] = $val1*$val2;
+         $div[31:0] = $val1/$val2;
+         $out[31:0] = $reset ? 32'h0 : ($op[1] ? ($op[0] ? $div : $prod):($op[0] ? $diff : $sum));
+         
+         $cnt[31:0] = $reset ? 0 : (>>1$cnt + 1); 
+
+```
+
+![Screenshot 2023-08-22 214859](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/1e50cb01-f2df-4c98-a21a-4553b482e827)
+
+#### 2 Cycle Calculator
+
+The code provided here illustrates a 2-cycle calculator implemented using pipelining. It showcases how a 2-cycle operation can be achieved by splitting the computation across different stages of the pipeline. The calculations include addition, subtraction, multiplication, and division. The pipeline stages are marked as |calc @n.
+
+![Screenshot 2023-08-22 214712](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/a7f2c37e-693f-4bfb-a492-2c231092c478)
+
+```tlv
+   $reset = *reset;
+   $op[1:0] = $random[1:0];
+   $val2[31:0] = $rand2[3:0];
+   
+   |calc
+      @1
+         $val1[31:0] = >>2$out;
+         $sum[31:0] = $val1+$val2;
+         $diff[31:0] = $val1-$val2;
+         $prod[31:0] = $val1*$val2;
+         $div[31:0] = $val1/$val2;
+         $valid = $reset ? 0 : (>>1$valid + 1);
+      @2
+         $out[31:0] = ($reset | ~($valid))  ? 32'h0 : ($op[1] ? ($op[0] ? $div : $prod):($op[0] ? $diff : $sum));
+```
+
+![Screenshot 2023-08-22 215009](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/c97f9831-cd9e-4591-bf6b-7f10e7764dab)
