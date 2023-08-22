@@ -688,6 +688,20 @@ Execute the script rv32im.sh which contains the necessary commands to convert C 
   - [Free Running Counter](#free-running-counter)
   - [Counter-Output with Calculator Integration](#counter-output-with-calculator-integration)
   - [Sequential Calculator](#sequential-calculator)
+- [Pipelining](#pipelining)
+  - [Identifiers and Types in TL-Verilog](#identifiers-and-types-in-tl-verilog)
+  - [Basic Pipelined Circuits](#basic-pipelined-circuits)
+    - [Pipelined Pythagorean](#pipelined-pythagorean)
+    - [Error Detection Demo](#error-detection-demo)
+    - [Counter and Calculator in Pipeline](#counter-and-calculator-in-pipeline)
+    - [2 Cycle Calculator](#2 cycle-calculator)
+- [Validity](#validity)
+  - [Brief Introduction](#brief-introduction)
+  - [Clock Gating](#clock-gating)
+  - [Illustration of Validity](#illustration-of-validity)
+  - [Distance Accumulator](#distance-accumulator)
+  - [2 Cycle Calculator with Validity](#2-cycle-calculator-with-validity)
+  - [Calculator with Single Value Memory](#calculator-with-single-value-memory)
 
 ## Logic Gates
 
@@ -1146,7 +1160,7 @@ By using clock gating, designers can significantly reduce power consumption in d
 
 Here are some examples of how validity is utilized in different designs using Transaction-Level Verilog (TL-Verilog):
 
-1. Distance Accumulator
+#### Distance Accumulator
 
 Block Diagram:
 
@@ -1175,7 +1189,7 @@ In this example, the distance accumulator accumulates the results of calculation
 
 ![dist_acu](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/03184750-d420-40e4-89e6-2bf966c89a68)
 
-2. 2 Cycle Calculator with Validity
+#### 2 Cycle Calculator with Validity
 
 Block Diagram:
 
@@ -1205,7 +1219,7 @@ In this example, a 2-cycle calculator is designed with validity tracking. The $v
 
 ![2_cyc_v](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/65cec4cd-b79c-41e7-b2ec-15649f9daf88)
 
-3. Calculator with Single Value Memory
+#### Calculator with Single Value Memory
 
 Block Diagram:
 
