@@ -5,7 +5,8 @@
 - [Day 1: Introduction to RISC-V ISA and GNU compiler toolchain](#day-1-introduction-to-risc-v-isa-and-gnu-compiler-toolchain)
 - [Day 2: Introduction to ABI and basic verification flow](#day-2-introduction-to-abi-and-basic-verification-flow)
 - [Day 3: Digital Logic with TL-Verilog and Makerchip](#day-3-digital-logic-with-tl-verilog-and-makerchip)
-
+- [Day 4: Building a RISC-V CPU Core Micro-architecture](#day-4-building-a-risc-v-cpu-core-micro-architecture)
+- [Day 5: Complete Pipelined RISC-V CPU Micro-architecture](#day-5-complete-pipelined-risc-v-cpu-micro-architecture)
 
 # RISC-V Toolchain Installation Guide
 
@@ -2283,3 +2284,4 @@ The TL-Verilog Code is given below:
 ![Screenshot 2023-08-22 232022](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/5279aba1-8652-49df-a81e-5ec91e6e5cc0)
 ![Screenshot 2023-08-22 232047](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/172ee30a-8f9c-47b8-9450-dacac5d87cfb)
 
+# Day 5: Complete Pipelined RISC-V CPU Micro-architecture
