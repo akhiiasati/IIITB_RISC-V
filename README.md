@@ -1266,6 +1266,17 @@ These examples showcase how validity is utilized to control the flow of transact
 
 # Day 4: Building a RISC-V CPU Core Micro-architecture
 
+- [Brief Introduction](#brief-introduction)
+- [Program Counter (PC)](#program-counter-pc)
+- [Instruction Fetch](#instruction-fetch)
+- [Instruction Decode](#instruction-decode)
+- [Register File Read](#register-file-read)
+- [Arithmetic Logical Unit(ALU)](#arithmetic-logical-unit-alu)
+- [Register File Write](#register-file-write)
+- [Branch Instructions](#branch-instructions)
+
+### Brief Introduction
+
 In the process of building a RISC-V CPU core micro-architecture, you'll be designing and assembling various components to create a functional CPU capable of executing RISC-V instructions. Here's an overview of the basic components and their functions:
 
 1. Program Counter (PC):
@@ -1775,7 +1786,7 @@ The $src1_value and $src2_value signals store the values read from the register 
 
 ![Screenshot 2023-08-22 230609](https://github.com/akhiiasati/IIITB_RISC-V/assets/43675821/d1c31502-503b-474f-b1dd-f815e91bedee)
 
-Arithmetic Logical Unit(ALU):
+### Arithmetic Logical Unit(ALU):
 
 The TL-Verilog Code is given below:
 
