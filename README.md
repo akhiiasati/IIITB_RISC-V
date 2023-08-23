@@ -2690,3 +2690,5 @@ The $valid signal determines whether the current instruction is valid for execut
 # Refrences:
 - https://www.vsdiat.com
 - https://makerchip.com
+- https://github.com/RISCV-MYTH-WORKSHOP/RISC-V-CPU-Core-using-TL-Verilog
+- https://github.com/stevehoover/RISC-V_MYTH_Workshop
